@@ -1,0 +1,55 @@
+
+
+.back{
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	right: 0.4px;
+	bottom: 0.4px;
+}
+
+
+.skins{
+	position: absolute;
+	top: 70px;
+	left: 350px;
+}
+
+
+.skin{
+	width: 100px;
+	height: 150px;
+	position: absolute;
+	top:230px;
+	left:380px;
+	background-color: #F49447;
+	border-color: #1B1F1C;
+	background-image: url(../resources/skin1.png);
+	background-position: center;
+	cursor: pointer;
+	background-size: 100% 100%;
+}
+#skin2{
+	left:530px;
+}
+#skin3{
+	left:680px;
+}
+#skin4{
+	left:830px;
+}
+#back{
+	position: absolute;
+	background-image: url(../resources/back.png);
+	top:400px;
+	left: 875px;
+	background-size: cover;
+	background-position: center;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	overflow: hidden;
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+}

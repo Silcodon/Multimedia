@@ -1,0 +1,57 @@
+#container {
+	position: relative;
+}
+
+#pause{
+  display: none;
+  text-align: center;
+  padding-top: 200px;
+  z-index: 1;
+  width: 600px;
+  height: 360px;
+  margin-left: 500px;
+  position: absolute;
+}
+
+#game-over {
+  display: none;
+  text-align: center;
+  padding-top: 200px;
+  z-index: 1;
+  width: 600px;
+  height: 360px;
+  margin-left: 500px;
+  position: absolute;
+}
+
+.mute{
+  position: relative;
+  padding-top: 50px;
+
+
+}
+
+button {
+  display: block;
+  width: 150px;
+  margin: auto;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #ff0000;
+  color: white;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  background-color: #FFA500;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #ff0000;
+}
+
+canvas {
+  position: absolute;
+  margin: auto;
+  border: 1px solid black;
+  z-index: 1;
+}

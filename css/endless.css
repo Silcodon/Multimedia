@@ -1,0 +1,101 @@
+.parent{
+	position: relative;
+
+}
+
+.back{
+	position: relative;
+		left: 5%;
+	width: 89%;
+	height: 98%;
+}
+.text{
+	position: absolute;
+	right: 850px;
+	width: 250px;
+	height: 75px;
+
+
+}
+
+.endless{
+	position: absolute;
+	top: 20px;
+	left: 30px;
+}
+
+input[type = text]{
+	width: 150px;
+	border: 2px solid #aaa;
+	border-radius: 8px;
+	margin: 8px 0;
+	outline: none;
+	padding: 8px;
+	box-sizing: border-box;
+	border-color: #F49447;
+	background-color: #1B1F1C;
+	position: absolute;
+	top: 138px;
+	left:350px;
+
+}
+::placeholder{
+	color: #F49447;
+}
+input[type = text]:focus{
+	box-shadow: 0 0 8px 0 #F49447;
+}
+input, select, textarea{
+	color: #F49447;
+}
+
+textarea:focus, input:focus{
+	color: #F49447;
+}
+p{
+	width:400px;
+	height:40px;
+	font-size: 20px;
+	border-radius: 8px;
+	font-family: Splatch;
+	position: absolute;
+	top: 123px;
+	left: 50px;
+	color: black;
+	-webkit-text-stroke-width: 0.5px;
+   	-webkit-text-stroke-color:#F49447;
+}
+#start{
+	position: absolute;
+	width:150px;
+	height:40px;
+	font-size: 14px;
+	border-radius: 8px;
+	font-family: Splatch;
+	background-color: #F49447;
+	cursor: pointer;
+	border-color: black;
+	transition: background-color 0.5s, color 0.5s;
+	top: 200px;
+	left:200px;
+
+}
+#start:hover{
+	background-color: #0e1111;
+	color: #F49447;
+}
+
+#back{
+	position: absolute;
+	background-image: url(../resources/back.png);
+	top:350px;
+	left: 80px;
+	background-size: cover;
+	background-position: center;
+	background-color: transparent;
+	outline: none;
+	border: none;
+	overflow: hidden;
+	width: 50px;
+	height: 50px;
+}
