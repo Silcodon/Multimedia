@@ -5,7 +5,6 @@
 		<title>EndlessJogo</title>
 
 		<meta charset="utf-8">
-		
 		<script type="text/javascript" src="../js/endless.js" defer="true"></script>
 
   		<link rel="stylesheet" href="../css/endlessjogo.css" type="text/css" media="screen">
@@ -15,6 +14,11 @@
 	<body>
 		<div id="container">
 			<canvas id="canvas" width="1600" height="800" style="display: block; margin: auto"></canvas>
+			<section class="loading">
+			Carregando...
+			<span class="loading__author"></span>
+			    <span class="loading__anim"></span>
+			</section>
 			<div id="game-over">
 				<h1>Correu <span id="score"></span> metros!</h1>
       			<button id="restart" href="javascript:void(0);">JOGAR</button>
@@ -24,7 +28,9 @@
 				<h1>Pausado</h1>
       			<button id="continue" href="javascript:void(0);">CONTINUAR</button>
       			<button id = "endless" onclick = "location.href='jogar.html'">SAIR</button>
-      			 <class id='mute' href="javascript:void(0);"><img border="0" src="../resources/mute.png" width="25" height="25"></class>
+      			<a href="#">
+      			 <img id='mute' border="0" src="../resources/unmute.png" width="25" height="25"/>
+      			</a>
    			</div>
    		</div>
 	</body>

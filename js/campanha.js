@@ -1,138 +1,370 @@
-var config = {
-    type: Phaser.AUTO,
-    width: 1600,
-    height: 800,
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: {y: 1000},
-            debug: false
+(function(){
+
+//-------------------------------------------------------------------------
+  // UTILITIES
+  //-------------------------------------------------------------------------
+  
+  function timestamp() {
+    return window.performance && window.performance.now ? window.performance.now() : new Date().getTime();
+  }
+  
+  function bound(x, min, max) {
+    return Math.max(min, Math.min(max, x));
+  }
+
+  function get(url, onsuccess) {
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = function() {
+      if ((request.readyState == 4) && (request.status == 200))
+        onsuccess(request);
+    }
+    request.open("GET", url, true);
+    request.send();
+  }
+
+  function overlap(x1, y1, w1, h1, x2, y2, w2, h2) {
+    return !(((x1 + w1 - 1) < x2) ||
+             ((x2 + w2 - 1) < x1) ||
+             ((y1 + h1 - 1) < y2) ||
+             ((y2 + h2 - 1) < y1))
+  }
+  
+  //-------------------------------------------------------------------------
+  // GAME CONSTANTS AND VARIABLES
+  //-------------------------------------------------------------------------
+  
+  var MAP      = { tw: 64, th: 48 },
+      TILE     = 32,
+      METER    = TILE,
+      GRAVITY  = 9.8 * 6, // default (exagerated) gravity
+      MAXDX    = 15,      // default max horizontal speed (15 tiles per second)
+      MAXDY    = 60,      // default max vertical speed   (60 tiles per second)
+      ACCEL    = 1/2,     // default take 1/2 second to reach maxdx (horizontal acceleration)
+      FRICTION = 1/6,     // default take 1/6 second to stop from maxdx (horizontal friction)
+      IMPULSE  = 1500,    // default player jump impulse
+      COLOR    = { BLACK: '#000000', YELLOW: '#ECD078', BRICK: '#D95B43', PINK: '#C02942', PURPLE: '#542437', GREY: '#333', SLATE: '#53777A', GOLD: 'gold' },
+      COLORS   = [ COLOR.YELLOW, COLOR.BRICK, COLOR.PINK, COLOR.PURPLE, COLOR.GREY ],
+      KEY      = { SPACE: 32, LEFT: 37, UP: 38, RIGHT: 39, DOWN: 40 };
+      
+  var fps      = 60,
+      step     = 1/fps,
+      canvas   = document.getElementById('canvas'),
+      ctx      = canvas.getContext('2d'),
+      width    = canvas.width  = MAP.tw * TILE,
+      height   = canvas.height = MAP.th * TILE,
+      player   = {},
+      monsters = [],
+      treasure = [],
+      cells    = [];
+  
+  var t2p      = function(t)     { return t*TILE;                  },
+      p2t      = function(p)     { return Math.floor(p/TILE);      },
+      cell     = function(x,y)   { return tcell(p2t(x),p2t(y));    },
+      tcell    = function(tx,ty) { return cells[tx + (ty*MAP.tw)]; };
+  
+  
+  //-------------------------------------------------------------------------
+  // UPDATE LOOP
+  //-------------------------------------------------------------------------
+
+  function onkey(ev, key, down) {
+    switch(key) {
+      case KEY.LEFT:  player.left  = down; ev.preventDefault(); return false;
+      case KEY.RIGHT: player.right = down; ev.preventDefault(); return false;
+      case KEY.SPACE: player.jump  = down; ev.preventDefault(); return false;
+    }
+  }
+  
+  function update(dt) {
+    updatePlayer(dt);
+    updateMonsters(dt);
+    checkTreasure();
+  }
+
+  function updatePlayer(dt) {
+    updateEntity(player, dt);
+  }
+
+  function updateMonsters(dt) {
+    var n, max;
+    for(n = 0, max = monsters.length ; n < max ; n++)
+      updateMonster(monsters[n], dt);
+  }
+
+  function updateMonster(monster, dt) {
+    if (!monster.dead) {
+      updateEntity(monster, dt);
+      if (overlap(player.x, player.y, TILE, TILE, monster.x, monster.y, TILE, TILE)) {
+        if ((player.dy > 0) && (monster.y - player.y > TILE/2))
+          killMonster(monster);
+        else
+          killPlayer(player);
+      }
+    }
+  }
+
+  function checkTreasure() {
+    var n, max, t;
+    for(n = 0, max = treasure.length ; n < max ; n++) {
+      t = treasure[n];
+      if (!t.collected && overlap(player.x, player.y, TILE, TILE, t.x, t.y, TILE, TILE))
+        collectTreasure(t);
+    }
+  }
+
+  function killMonster(monster) {
+    player.killed++;
+    monster.dead = true;
+  }
+
+  function killPlayer(player) {
+    player.x = player.start.x;
+    player.y = player.start.y;
+    player.dx = player.dy = 0;
+  }
+
+  function collectTreasure(t) {
+    player.collected++;
+    t.collected = true;
+  }
+
+  function updateEntity(entity, dt) {
+    var wasleft    = entity.dx  < 0,
+        wasright   = entity.dx  > 0,
+        falling    = entity.falling,
+        friction   = entity.friction * (falling ? 0.5 : 1),
+        accel      = entity.accel    * (falling ? 0.5 : 1);
+  
+    entity.ddx = 0;
+    entity.ddy = entity.gravity;
+  
+    if (entity.left)
+      entity.ddx = entity.ddx - accel;
+    else if (wasleft)
+      entity.ddx = entity.ddx + friction;
+  
+    if (entity.right)
+      entity.ddx = entity.ddx + accel;
+    else if (wasright)
+      entity.ddx = entity.ddx - friction;
+  
+    if (entity.jump && !entity.jumping && !falling) {
+      entity.ddy = entity.ddy - entity.impulse; // an instant big force impulse
+      entity.jumping = true;
+    }
+  
+    entity.x  = entity.x  + (dt * entity.dx);
+    entity.y  = entity.y  + (dt * entity.dy);
+    entity.dx = bound(entity.dx + (dt * entity.ddx), -entity.maxdx, entity.maxdx);
+    entity.dy = bound(entity.dy + (dt * entity.ddy), -entity.maxdy, entity.maxdy);
+  
+    if ((wasleft  && (entity.dx > 0)) ||
+        (wasright && (entity.dx < 0))) {
+      entity.dx = 0; // clamp at zero to prevent friction from making us jiggle side to side
+    }
+  
+    var tx        = p2t(entity.x),
+        ty        = p2t(entity.y),
+        nx        = entity.x%TILE,
+        ny        = entity.y%TILE,
+        cell      = tcell(tx,     ty),
+        cellright = tcell(tx + 1, ty),
+        celldown  = tcell(tx,     ty + 1),
+        celldiag  = tcell(tx + 1, ty + 1);
+  
+    if (entity.dy > 0) {
+      if ((celldown && !cell) ||
+          (celldiag && !cellright && nx)) {
+        entity.y = t2p(ty);
+        entity.dy = 0;
+        entity.falling = false;
+        entity.jumping = false;
+        ny = 0;
+      }
+    }
+    else if (entity.dy < 0) {
+      if ((cell      && !celldown) ||
+          (cellright && !celldiag && nx)) {
+        entity.y = t2p(ty + 1);
+        entity.dy = 0;
+        cell      = celldown;
+        cellright = celldiag;
+        ny        = 0;
+      }
+    }
+  
+    if (entity.dx > 0) {
+      if ((cellright && !cell) ||
+          (celldiag  && !celldown && ny)) {
+        entity.x = t2p(tx);
+        entity.dx = 0;
+      }
+    }
+    else if (entity.dx < 0) {
+      if ((cell     && !cellright) ||
+          (celldown && !celldiag && ny)) {
+        entity.x = t2p(tx + 1);
+        entity.dx = 0;
+      }
+    }
+
+    if (entity.monster) {
+      if (entity.left && (cell || !celldown)) {
+        entity.left = false;
+        entity.right = true;
+      }      
+      else if (entity.right && (cellright || !celldiag)) {
+        entity.right = false;
+        entity.left  = true;
+      }
+    }
+  
+    entity.falling = ! (celldown || (nx && celldiag));
+  
+  }
+
+  //-------------------------------------------------------------------------
+  // RENDERING
+  //-------------------------------------------------------------------------
+  
+  function render(ctx, frame, dt) {
+    ctx.clearRect(0, 0, width, height);
+    renderMap(ctx);
+    renderTreasure(ctx, frame);
+    renderPlayer(ctx, dt);
+    renderMonsters(ctx, dt);
+  }
+
+  function renderMap(ctx) {
+    var x, y, cell;
+    for(y = 0 ; y < MAP.th ; y++) {
+      for(x = 0 ; x < MAP.tw ; x++) {
+        cell = tcell(x, y);
+        if (cell) {
+          ctx.fillStyle = COLORS[cell - 1];
+          ctx.fillRect(x * TILE, y * TILE, TILE, TILE);
         }
-    },
-    scene: {
-        key: 'main',
-        preload: preload,
-        create: create,
-        update: update
+      }
     }
-};
+  }
 
-var game = new Phaser.Game(config);
+  function renderPlayer(ctx, dt) {
+    ctx.fillStyle = COLOR.YELLOW;
+    ctx.fillRect(player.x + (player.dx * dt), player.y + (player.dy * dt), TILE, TILE);
 
-var map;
-var player;
-var cursors;
-var groundLayer, coinLayer;
-var text;
-var score = 0;
+    var n, max;
 
-function preload() {
-    // map made with Tiled in JSON format
-    this.load.tilemapTiledJSON('map', '../resources/map.json');
-    // tiles in spritesheet 
-    this.load.spritesheet('tiles', '../resources/tiles.png', {frameWidth: 70, frameHeight: 70});
-    // simple coin image
-    this.load.image('coin', '../resources/coinGold.png');
-    // player animations
-    this.load.atlas('player', '../resources/player.png', '../resources/player.json');
-}
+    ctx.fillStyle = COLOR.GOLD;
+    for(n = 0, max = player.collected ; n < max ; n++)
+      ctx.fillRect(t2p(2 + n), t2p(2), TILE/2, TILE/2);
 
-function create() {
-    // load the map 
-    map = this.make.tilemap({key: 'map'});
+    ctx.fillStyle = COLOR.SLATE;
+    for(n = 0, max = player.killed ; n < max ; n++)
+      ctx.fillRect(t2p(2 + n), t2p(3), TILE/2, TILE/2);
+  }
 
-    // tiles for the ground layer
-    var groundTiles = map.addTilesetImage('tiles');
-    // create the ground layer
-    groundLayer = map.createDynamicLayer('World', groundTiles, 0, 0);
-    // the player will collide with this layer
-    groundLayer.setCollisionByExclusion([-1]);
-
-    // coin image used as tileset
-    var coinTiles = map.addTilesetImage('coin');
-    // add coins as tiles
-    coinLayer = map.createDynamicLayer('Coins', coinTiles, 0, 0);
-
-    // set the boundaries of our game world
-    this.physics.world.bounds.width = groundLayer.width;
-    this.physics.world.bounds.height = groundLayer.height;
-
-    // create the player sprite    
-    player = this.physics.add.sprite(200, 200, 'player');
-    player.setCollideWorldBounds(true); // don't go out of the map    
-    
-    // small fix to our player images, we resize the physics body object slightly
-    player.body.setSize(player.width, player.height-8);
-    
-    // player will collide with the level tiles 
-    this.physics.add.collider(groundLayer, player);
-
-    coinLayer.setTileIndexCallback(17, collectCoin, this);
-    // when the player overlaps with a tile with index 17, collectCoin 
-    // will be called    
-    this.physics.add.overlap(player, coinLayer);
-
-    // player walk animation
-    this.anims.create({
-        key: 'walk',
-        frames: this.anims.generateFrameNames('player', {prefix: 'p1_walk', start: 1, end: 11, zeroPad: 2}),
-        frameRate: 10,
-        repeat: -1
-    });
-    // idle with only one frame, so repeat is not neaded
-    this.anims.create({
-        key: 'idle',
-        frames: [{key: 'player', frame: 'p1_stand'}],
-        frameRate: 10,
-    });
-
-
-    cursors = this.input.keyboard.createCursorKeys();
-
-    // set bounds so the camera won't go outside the game world
-    this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    // make the camera follow the player
-    this.cameras.main.startFollow(player);
-
-    // set background color, so the sky is not black    
-    this.cameras.main.setBackgroundColor('#ccccff');
-
-    // this text will show the score
-    text = this.add.text(20, 570, '0', {
-        fontSize: '20px',
-        fill: '#ffffff'
-    });
-    // fix the text to the camera
-    text.setScrollFactor(0);
-}
-
-// this function will be called when the player touches a coin
-function collectCoin(sprite, tile) {
-    coinLayer.removeTileAt(tile.x, tile.y); // remove the tile/coin
-    score++; // add 10 points to the score
-    text.setText(score); // set the text to show the current score
-    return false;
-}
-
-function update(time, delta) {
-    if (cursors.left.isDown)
-    {
-        player.body.setVelocityX(-200);
-        player.anims.play('walk', true); // walk left
-        player.flipX = true; // flip the sprite to the left
+  function renderMonsters(ctx, dt) {
+    ctx.fillStyle = COLOR.SLATE;
+    var n, max, monster;
+    for(n = 0, max = monsters.length ; n < max ; n++) {
+      monster = monsters[n];
+      if (!monster.dead)
+        ctx.fillRect(monster.x + (monster.dx * dt), monster.y + (monster.dy * dt), TILE, TILE);
     }
-    else if (cursors.right.isDown)
-    {
-        player.body.setVelocityX(200);
-        player.anims.play('walk', true);
-        player.flipX = false; // use the original sprite looking to the right
-    } else {
-        player.body.setVelocityX(0);
-        player.anims.play('idle', true);
+  }
+
+  function renderTreasure(ctx, frame) {
+    ctx.fillStyle   = COLOR.GOLD;
+    ctx.globalAlpha = 0.25 + tweenTreasure(frame, 60);
+    var n, max, t;
+    for(n = 0, max = treasure.length ; n < max ; n++) {
+      t = treasure[n];
+      if (!t.collected)
+        ctx.fillRect(t.x, t.y + TILE/3, TILE, TILE*2/3);
     }
-    // jump 
-    if (cursors.up.isDown && player.body.onFloor())
-    {
-        player.body.setVelocityY(-750);        
+    ctx.globalAlpha = 1;
+  }
+
+  function tweenTreasure(frame, duration) {
+    var half  = duration/2
+        pulse = frame%duration;
+    return pulse < half ? (pulse/half) : 1-(pulse-half)/half;
+  }
+
+  //-------------------------------------------------------------------------
+  // LOAD THE MAP
+  //-------------------------------------------------------------------------
+  
+  function setup(map) {
+    var data    = map.layers[0].data,
+        objects = map.layers[1].objects,
+        n, obj, entity;
+
+    for(n = 0 ; n < objects.length ; n++) {
+      obj = objects[n];
+      entity = setupEntity(obj);
+      switch(obj.type) {
+      case "player"   : player = entity; break;
+      case "monster"  : monsters.push(entity); break;
+      case "treasure" : treasure.push(entity); break;
+      }
     }
-}
+
+    cells = data;
+  }
+
+  function setupEntity(obj) {
+    var entity = {};
+    entity.x        = obj.x;
+    entity.y        = obj.y;
+    entity.dx       = 0;
+    entity.dy       = 0;
+    entity.gravity  = METER * (obj.properties.gravity || GRAVITY);
+    entity.maxdx    = METER * (obj.properties.maxdx   || MAXDX);
+    entity.maxdy    = METER * (obj.properties.maxdy   || MAXDY);
+    entity.impulse  = METER * (obj.properties.impulse || IMPULSE);
+    entity.accel    = entity.maxdx / (obj.properties.accel    || ACCEL);
+    entity.friction = entity.maxdx / (obj.properties.friction || FRICTION);
+    entity.monster  = obj.type == "monster";
+    entity.player   = obj.type == "player";
+    entity.treasure = obj.type == "treasure";
+    entity.left     = obj.properties.left;
+    entity.right    = obj.properties.right;
+    entity.start    = { x: obj.x, y: obj.y }
+    entity.killed = entity.collected = 0;
+    return entity;
+  }
+
+  //-------------------------------------------------------------------------
+  // THE GAME LOOP
+  //-------------------------------------------------------------------------
+  
+  var counter = 0, dt = 0, now,
+      last = timestamp();
+  
+  function frame() {
+    now = timestamp();
+    dt = dt + Math.min(1, (now - last) / 1000);
+    while(dt > step) {
+      dt = dt - step;
+      update(step);
+    }
+    render(ctx, counter, dt);
+    last = now;
+    counter++;
+    requestAnimationFrame(frame, canvas);
+  }
+  
+  document.addEventListener('keydown', function(ev) { return onkey(ev, ev.keyCode, true);  }, false);
+  document.addEventListener('keyup',   function(ev) { return onkey(ev, ev.keyCode, false); }, false);
+
+  get("../resources/level.json", function(req) {
+    setup(JSON.parse(req.responseText));
+    frame();
+  });
+
+
+
+
+
+})();

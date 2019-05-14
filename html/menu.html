@@ -9,7 +9,13 @@
 	<script type="text/javascript" src="../js/menu.js"></script>
 </head>
 <body>
-
+	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
+	</audio>
+	<script type="text/javascript">
+	window.onload = function() {
+    document.getElementById("menu_audio").play();
+	}
+	</script>
 	<header>
 
 		<div class = parent>
@@ -25,7 +31,24 @@
 		<button id = "rank" onclick="location.href='ranking.html'">RANKING</button>
 		<button id = "skin" onclick="location.href='skins.html'">SKINS</button>
 		<button id = "help" onclick="location.href='ajuda.html'">AJUDA</button>
-		<button id = "options" onclick="location.href='settings.html'"></button>
+		<a href="#">
+      			 <img id='mute' border="0" src="../resources/unmute.png" width="25" height="25"/>
+      			</a>
+		 <script>
+
+         document.getElementById('mute').addEventListener('click',function(){
+      	if (menu_audio.muted== false) 
+		{
+		    document.getElementById("mute").src="../resources/mute.png";
+		    menu_audio.muted = true;
+		}
+		else 
+		{
+			document.getElementById("mute").src="../resources/unmute.png";
+		    menu_audio.muted = false;
+		}
+      });
+    	</script>
 
 
 

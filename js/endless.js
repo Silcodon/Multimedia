@@ -11,7 +11,7 @@
         var ground = [], water = [], enemies = [], environment = [];
         var platformWidth = 32;
         var platformHeight = canvas.height - platformWidth * 4;
-
+        var user='anonymous';
         var imgs={};
         var animationSequence = [];  // array holding the order of the animation
         var currentFrame = 0;        // the current frame to draw
@@ -275,7 +275,7 @@
           constructor(x,y,dx,dy){
             super(x,y,dx,dy);
             // add properties directly to the player imported object
-            this.width     = 45;
+            this.width     = 60;
             this.height    = 58;
             this.speed     = 6;
             // jumping
@@ -287,8 +287,8 @@
 
             // spritesheets
             this.sheet     = SpriteSheet('../resources/normal_walk.png', this.width, this.height);
-            this.walkAnim  = Animation(this.sheet, 4, 16, 19);
-            this.jumpAnim  = Animation(this.sheet, 4, 30, 30);
+            this.walkAnim  = Animation(this.sheet, 4, 1, 9);
+            this.jumpAnim  = Animation(this.sheet, 4, 1, 1);
             this.anim      = this.walkAnim;
 
             var JumpCounter=0;  // how long the jump button can be pressed down
@@ -328,7 +328,7 @@
             this.anim = this.walkAnim;
           }
 
-          updateAnimation(8);
+          updateAnimation(4);
         }
 
          /**
@@ -695,8 +695,8 @@
        *Passa o ranking para o HTML
        */
        function ranking(){
-       	localStorage.setItem('ranking', score);
-       }
+       	localStorage.setItem('myStorage',JSON)
+   		}
 
         /**
          * Keep track of the spacebar events
@@ -776,12 +776,14 @@
       document.getElementById('mute').addEventListener('click',function(){
       	if (imgs.background_music.muted == false) 
 		{
+		    document.getElementById("mute").src="../resources/mute.png";
 		    imgs.background_music.muted = true;
 		    imgs.gameover_music.muted = true;
 		    imgs.jump_music.muted = true;
 		}
 		else 
 		{
+			document.getElementById("mute").src="../resources/unmute.png";
 		    imgs.background_music.muted = false;
 		    imgs.gameover_music.muted = false;
 		    imgs.jump_music.muted = false;

@@ -3,18 +3,26 @@
     <head>
         <title>Campanha</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
-        
-        <script type="text/javascript" src="../js/phaser.js"></script>
-        <script type="text/javascript" src="../js/campanha.js"></script>
-        
-        <style>
-            body {
-                padding: 0px;
-                margin: 0px;             
-            }
-        </style>
+        <script type="text/javascript" src="../js/campanha.js" defer="true"></script>
+
+        <link rel="stylesheet" href="../css/campanha.css" type="text/css" media="screen">
     </head>
-    <body>        
+
+
+    <body>
+        <div id="container">
+            <canvas id="canvas" width="1600" height="800" style="display: block; margin: auto"></canvas>
+            <div id="game-over">
+                <h1>Correu <span id="score"></span> metros!</h1>
+                <button id="restart" href="javascript:void(0);">JOGAR</button>
+                <button id = "endless" onclick = "location.href='jogar.html'">SAIR</button>
+            </div>
+            <div id="pause">
+                <h1>Pausado</h1>
+                <button id="continue" href="javascript:void(0);">CONTINUAR</button>
+                <button id = "endless" onclick = "location.href='jogar.html'">SAIR</button>
+                 <class id='mute' href="javascript:void(0);"><img border="0" src="../resources/mute.png" width="25" height="25"></class>
+            </div>
+        </div>
     </body>
 </html>
