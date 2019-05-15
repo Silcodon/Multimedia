@@ -286,7 +286,7 @@
             this.isJumping = false;
 
             // spritesheets
-            this.sheet     = SpriteSheet('../resources/normal_walk.png', this.width, this.height);
+            this.sheet     = SpriteSheet('../resources/'+getCookie("skin")+".png", this.width, this.height);
             this.walkAnim  = Animation(this.sheet, 4, 1, 9);
             this.jumpAnim  = Animation(this.sheet, 4, 1, 1);
             this.anim      = this.walkAnim;
@@ -641,6 +641,32 @@
 
 		}
 
+
+		 function setCookie(cname, cvalue, exdays) {
+		    var d = new Date();
+		    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		    var expires = "expires=" + d.toUTCString();
+		    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+
+		  }
+
+		  function getCookie(cname) {
+		    var name = cname + "=";
+		    var decodedCookie = decodeURIComponent(document.cookie);
+		    var ca = decodedCookie.split(';');
+		    for (var i = 0; i < ca.length; i++) {
+		      var c = ca[i];
+		      while (c.charAt(0) == ' ') {
+		        c = c.substring(1);
+		      }
+		      if (c.indexOf(name) == 0) {
+		        return c.substring(name.length, c.length);
+		      }
+		    }
+		    return "";
+		  }
+
+
       /**
        * Game loop
        */
@@ -742,6 +768,18 @@
         document.getElementById('game-over').style.display = 'none';
         document.getElementById('pause').style.display = 'none';
       	imgs=images;
+         if (getCookie("mute") == "false") {
+		      	document.getElementById("mute").src="../resources/unmute.png";
+			    imgs.background_music.muted = false;
+			    imgs.gameover_music.muted = false;
+			    imgs.jump_music.muted = false;
+		    }
+		  else{
+		  		document.getElementById("mute").src="../resources/mute.png";
+			    imgs.background_music.muted = true;
+			    imgs.gameover_music.muted = true;
+			    imgs.jump_music.muted = true;
+		  }
         ground = [];
         water = [];
         environment = [];
@@ -788,6 +826,7 @@
 		    imgs.gameover_music.muted = false;
 		    imgs.jump_music.muted = false;
 		}
+		setCookie('mute', imgs.background_music.muted, 1);
       });
       document.getElementById('continue').addEventListener('click',function(){
       	stop=false;

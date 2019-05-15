@@ -42,8 +42,8 @@ span{
 #back{
 	position: absolute;
 	background-image: url(../resources/back.png);
-	top:580px;
-	left: 900px;
+	top:600px;
+	left: 1400px;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;

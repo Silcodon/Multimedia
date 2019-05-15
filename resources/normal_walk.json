@@ -1,0 +1,251 @@
+{
+	"textures": [
+		{
+			"image": "normal_walk.png",
+			"format": "RGBA8888",
+			"size": {
+				"w": 211,
+				"h": 272
+			},
+			"scale": 1,
+			"frames": [
+				{
+					"filename": "7.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 66
+					},
+					"frame": {
+						"x": 1,
+						"y": 1,
+						"w": 69,
+						"h": 66
+					}
+				},
+				{
+					"filename": "8.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 66
+					},
+					"frame": {
+						"x": 72,
+						"y": 1,
+						"w": 69,
+						"h": 66
+					}
+				},
+				{
+					"filename": "5.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 67,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 67,
+						"h": 67
+					},
+					"frame": {
+						"x": 143,
+						"y": 1,
+						"w": 67,
+						"h": 67
+					}
+				},
+				{
+					"filename": "2.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 69,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 69,
+						"h": 65
+					},
+					"frame": {
+						"x": 1,
+						"y": 69,
+						"w": 69,
+						"h": 65
+					}
+				},
+				{
+					"filename": "6.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 68
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 68
+					},
+					"frame": {
+						"x": 72,
+						"y": 69,
+						"w": 68,
+						"h": 68
+					}
+				},
+				{
+					"filename": "10.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 67
+					},
+					"frame": {
+						"x": 142,
+						"y": 70,
+						"w": 68,
+						"h": 67
+					}
+				},
+				{
+					"filename": "1.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 66
+					},
+					"frame": {
+						"x": 1,
+						"y": 136,
+						"w": 68,
+						"h": 66
+					}
+				},
+				{
+					"filename": "9.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 67,
+						"h": 67
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 67,
+						"h": 67
+					},
+					"frame": {
+						"x": 1,
+						"y": 204,
+						"w": 67,
+						"h": 67
+					}
+				},
+				{
+					"filename": "3.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 66
+					},
+					"frame": {
+						"x": 70,
+						"y": 204,
+						"w": 68,
+						"h": 66
+					}
+				},
+				{
+					"filename": "11.png",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 68,
+						"h": 66
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 1,
+						"w": 68,
+						"h": 65
+					},
+					"frame": {
+						"x": 140,
+						"y": 139,
+						"w": 68,
+						"h": 65
+					}
+				},
+				{
+					"filename": "4.png",
+					"rotated": false,
+					"trimmed": false,
+					"sourceSize": {
+						"w": 68,
+						"h": 65
+					},
+					"spriteSourceSize": {
+						"x": 0,
+						"y": 0,
+						"w": 68,
+						"h": 65
+					},
+					"frame": {
+						"x": 140,
+						"y": 206,
+						"w": 68,
+						"h": 65
+					}
+				}
+			]
+		}
+	],
+	"meta": {
+		"app": "https://www.codeandweb.com/texturepacker",
+		"version": "3.0",
+		"smartupdate": "$TexturePacker:SmartUpdate:24604bbcf87becffa7df25882be5bc52:563c26ce60cb9cb88529783428469a62:156e1be260c49c62ecc21b9657d1d564$"
+	}
+}

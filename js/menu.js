@@ -34,6 +34,11 @@ function main() {
 
   }
 
+  if (document.cookie.indexOf("skin=") == -1) {
+    //It does not, lets create it!
+
+    setCookie('skin', "normal_walk", 1);
+  }
 
   //Check if mute cookie exists.
   console.log(getCookie("mute"));

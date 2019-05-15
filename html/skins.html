@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Campanha</title>
+	<title>Skins</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/skins.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<script type="text/javascript" src="../js/skins.js"></script>
 </head>
 <body>
 	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
@@ -18,35 +18,10 @@
 		</div>
 
 	</header>
-	<script type="text/javascript">
-		var audio=document.getElementById("menu_audio");
-
-		if (getCookie("mute") == "false") {
-			      //It is, lets play!
-			      audio.play();
-			    }
-
-
-			  function getCookie(cname) {
-			    var name = cname + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var ca = decodedCookie.split(';');
-			    for (var i = 0; i < ca.length; i++) {
-			      var c = ca[i];
-			      while (c.charAt(0) == ' ') {
-			        c = c.substring(1);
-			      }
-			      if (c.indexOf(name) == 0) {
-			        return c.substring(name.length, c.length);
-			      }
-			    }
-			    return "";
-			  }
-	</script>
 
 	<nav>
 		<button id = "back" onclick="location.href='menu.html'"></button>
-		<button class = "skin"></button>
+		<button class = "skin" id = "skin1"></button>
 		<button class = "skin" id = "skin2"></button>
 		<button class = "skin" id = "skin3"></button>
 		<button class = "skin" id = "skin4"></button>>

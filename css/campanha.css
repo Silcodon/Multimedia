@@ -1,46 +1,18 @@
-#pause{
-  display: none;
-  text-align: center;
-  padding-top: 200px;
-  z-index: 1;
-  width: 600px;
-  height: 360px;
-  margin-left: 500px;
-  position: absolute;
+html,
+body,
+#game-container {
+  margin: 0;
+  padding: 0;
 }
 
-#game-over {
-  display: none;
-  text-align: center;
-  padding-top: 200px;
-  z-index: 1;
-  width: 600px;
-  height: 360px;
-  margin-left: 500px;
-  position: absolute;
+#game-container {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.mute{
-  position: relative;
-  padding-top: 50px;
-
-
-}
-
-button {
-  display: block;
-  width: 150px;
-  margin: auto;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #ff0000;
-  color: white;
-  font-weight: bold;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-  background-color: #FFA500;
+#game-container>canvas {
   border-radius: 5px;
-}
-
-button:hover {
-  background-color: #ff0000;
 }
