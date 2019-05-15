@@ -1,4 +1,12 @@
-
+body {
+padding: 0;
+margin: 0;
+position:fixed;
+top:0;
+bottom: 0;
+left: 0;
+right: 0;
+}
 
 .back{
 	position: absolute;
@@ -11,14 +19,14 @@
 
 .ajuda{
 	position: absolute;
-	top: 70px;
-	left: 300px;
+	top: 10%;
+	left: 20%;
 }
 
 
 p{
-	width:550px;
-	height:40px;
+	width:550%;
+	height:40%;
 	border-radius: 8px;
 	font-family: Splatch;
 	position: absolute;
@@ -28,40 +36,40 @@ p{
 }
 
 #endlesstexto{
-	font-size: 35px;
-	top:225px;
-	left:1200px;
+	font-size: 2.5vw;
+	top:20%;
+	left:70%;
 
 }
 
 #campanhatexto{
-	font-size: 35px;
-	top:225px;
-	left: 625px;
+	font-size: 2.5vw;
+	top:20%;
+	left: 40%;
 
 }
 
 #controls{
-	font-size: 40px;
-	top: 200px;
-	left: 320px;
+	font-size: 2.5vw;
+	top: 20%;
+	left: 20%;
 }
 
 #jumpendless{
-	font-size: 25px;
-	top: 310px;
-	left: 1200px;
+	font-size: 1.5vw;
+	top: 33%;
+	left: 65%;
 }
 
 #jump{
-	font-size: 25px;
-	top: 310px;
-	left: 625px;
+	font-size: 1.5vw;
+	top: 33%;
+	left: 35%;
 }
 #crouch{
-	font-size: 25px;
-	top: 390px;
-	left: 625px;
+	font-size: 1.5vw;
+	top: 40%;
+	left: 35%;
 }
 
 #start{
@@ -87,8 +95,8 @@ p{
 #back{
 	position: absolute;
 	background-image: url(../resources/back.png);
-	top:600px;
-	left: 1400px;
+	top:70%;
+	left: 70%;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
