@@ -1,5 +1,3 @@
-
-
 .back{
 	position: absolute;
 	height: 100%;
@@ -9,12 +7,11 @@
 }
 
 
-.ajuda{
+.creditos{
 	position: absolute;
-	top: 70px;
-	left: 300px;
+	top: 150px;
+	left: 600px;
 }
-
 
 p{
 	width:550px;
@@ -27,62 +24,24 @@ p{
    	-webkit-text-stroke-color:#F49447;
 }
 
-#endlesstexto{
-	font-size: 35px;
-	top:225px;
-	left:1200px;
-
-}
-
-#campanhatexto{
-	font-size: 35px;
-	top:225px;
-	left: 625px;
-
-}
-
-#controls{
-	font-size: 40px;
-	top: 200px;
-	left: 320px;
-}
-
-#jumpendless{
+#antonio{
 	font-size: 25px;
-	top: 310px;
-	left: 1200px;
-}
-
-#jump{
-	font-size: 25px;
-	top: 310px;
-	left: 625px;
-}
-#crouch{
-	font-size: 25px;
-	top: 390px;
+	top: 290px;
 	left: 625px;
 }
 
-#start{
-	position: absolute;
-	width:150px;
-	height:40px;
-	font-size: 14px;
-	border-radius: 8px;
-	font-family: Splatch;
-	background-color: #F49447;
-	cursor: pointer;
-	border-color: black;
-	transition: background-color 0.5s, color 0.5s;
-	top: 200px;
-	left:200px;
+#carlos{
+	font-size: 25px;
+	top: 350px;
+	left: 625px;
+}
 
+#david{
+	font-size: 25px;
+	top: 410px;
+	left: 625px;
 }
-#start:hover{
-	background-color: #0e1111;
-	color: #F49447;
-}
+
 
 #back{
 	position: absolute;

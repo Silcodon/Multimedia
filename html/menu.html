@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>menu</title>
 	<meta charset="utf-8">
@@ -8,17 +9,16 @@
 
 	<script type="text/javascript" src="../js/menu.js"></script>
 </head>
+
 <body>
-	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
+	<audio id="background_audio">
+		<source src="../resources/Menus.mp3" type="audio/mpeg" loop>
 	</audio>
-	<script type="text/javascript">
-	window.onload = function() {
-    document.getElementById("menu_audio").play();
-	}
-	</script>
+
+
 	<header>
 
-		<div class = parent>
+		<div class=parent>
 			<img class="back" src="../resources/backgr.png">
 			<img class="text" src="../resources/text.png">
 		</div>
@@ -27,31 +27,19 @@
 
 
 	<nav>
-		<button id = "play" onclick="location.href='jogar.html'">JOGAR</button>
-		<button id = "rank" onclick="location.href='ranking.html'">RANKING</button>
-		<button id = "skin" onclick="location.href='skins.html'">SKINS</button>
-		<button id = "help" onclick="location.href='ajuda.html'">AJUDA</button>
+		<button id="play" onclick="location.href='jogar.html'">JOGAR</button>
+		<button id="rank" onclick="location.href='ranking.html'">RANKING</button>
+		<button id="skin" onclick="location.href='skins.html'">SKINS</button>
+		<button id="help" onclick="location.href='ajuda.html'">AJUDA</button>
+		<button id = 'creditos' onclick="location.href='creditos.html'">CREDITOS</button>
 		<a href="#">
-      			 <img id='mute' border="0" src="../resources/unmute.png" width="25" height="25"/>
-      			</a>
-		 <script>
+			<img id='mute' border="0" width="25" height="25" />
+		</a>
 
-         document.getElementById('mute').addEventListener('click',function(){
-      	if (menu_audio.muted== false) 
-		{
-		    document.getElementById("mute").src="../resources/mute.png";
-		    menu_audio.muted = true;
-		}
-		else 
-		{
-			document.getElementById("mute").src="../resources/unmute.png";
-		    menu_audio.muted = false;
-		}
-      });
-    	</script>
 
 
 
 	</nav>
 </body>
+
 </html>

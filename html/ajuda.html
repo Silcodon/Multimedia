@@ -8,8 +8,7 @@
 
 </head>
 <body>
-	<audio src="../resources/Menus.mp3" preload="auto" autoplay loop>
-	<p>Seu navegador não suporta o elemento audio </p>
+	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
 	</audio>
 	<header>
 		<div class = parent>
@@ -21,14 +20,41 @@
 	</header>
 
 	<p id = "controls">CONTROLOS:</p>
-	<p id = "endless">SALTAR  -  ARROW UP / SPACEBAR</p>
+	<div id = "endless">
+		<p id = "endlesstexto">ENDLESS</p>
+		<p id=jumpendless>SALTAR  -  ARROW UP / SPACEBAR</p>
+	</div>
 	<div id="campanha">
+	<p id = "campanhatexto">CAMPANHA</p>
 	<p id = "jump">SALTAR  -  ARROW UP / SPACEBAR</p>
 	<p id = "crouch">ANDAR -  ARROW LEFT / ARROW RIGHT </p>
 	</div>
 
+	<script type="text/javascript">
+		var audio=document.getElementById("menu_audio");
+
+		if (getCookie("mute") == "false") {
+			      //It is, lets play!
+			      audio.play();
+			    }
 
 
+			  function getCookie(cname) {
+			    var name = cname + "=";
+			    var decodedCookie = decodeURIComponent(document.cookie);
+			    var ca = decodedCookie.split(';');
+			    for (var i = 0; i < ca.length; i++) {
+			      var c = ca[i];
+			      while (c.charAt(0) == ' ') {
+			        c = c.substring(1);
+			      }
+			      if (c.indexOf(name) == 0) {
+			        return c.substring(name.length, c.length);
+			      }
+			    }
+			    return "";
+			  }
+	</script>
 
 	<nav>
 		<button id = "back" onclick="location.href='menu.html'"></button>

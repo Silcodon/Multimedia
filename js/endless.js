@@ -732,7 +732,7 @@
 			paracima(e,teclas);
 		}	
 		addEventListener("keyup", pressup);
-
+		
 
 
       /**
