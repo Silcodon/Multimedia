@@ -14,9 +14,9 @@ function main() {
   var help = document.getElementById("help");
   var options = document.getElementById("options");
   if (getCookie("mute") == "false") {
-      document.getElementById("mute").src = "../resources/unmute.png";
-    } else {
-      document.getElementById("mute").src = "../resources/mute.png";
+    document.getElementById("mute").src = "../resources/unmute.png";
+  } else {
+    document.getElementById("mute").src = "../resources/mute.png";
   }
 
   //Get audio element.
@@ -41,8 +41,9 @@ function main() {
   }
 
   //Check if mute cookie exists.
-  console.log(getCookie("mute"));
+
   if (document.cookie.indexOf("mute=") == -1) {
+    document.getElementById("mute").src = "../resources/mute.png";
     //It does not, lets create it!
 
     setCookie('mute', false, 1);
@@ -51,6 +52,7 @@ function main() {
   } else {
     //Check if mute cookie is set to false.
     if (getCookie("mute") == "false") {
+      document.getElementById("mute").src = "../resources/unmute.png";
       //It is, lets play!
       audio.play();
     }
@@ -76,9 +78,7 @@ function main() {
   //On play/mute button/link click.
   document.getElementById("mute").addEventListener("click", function (e) {
     e = e || window.event;
-    console.log(getCookie("mute"));
     if (getCookie("mute") == "false") {
-      console.log('entrou');
       //If mute cookie is set to false, mute audio.
       audio.muted = true;
       document.getElementById("mute").src = "../resources/mute.png";
@@ -92,7 +92,7 @@ function main() {
         audio.play();
       }
     }
-    console.log(audio.muted);
+
     //Set/update mute cookie with new audio muted value.
     setCookie('mute', audio.muted, 1);
     e.preventDefault();

@@ -1,63 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Ranking</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/ranking.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<script type="text/javascript" src="../js/ranking.js"></script>
 </head>
+
 <body>
+
+
 	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
 	</audio>
+
+
+
 	<header>
-		<div class = parent>
+		<div class=parent>
 			<img class="back" src="../resources/backgr.png">
 			<img class="text" src="../resources/text.png">
 			<img class="ranking" src="../resources/ranking.png">
 		</div>
 
 	</header>
-	<script type="text/javascript">
-		var audio=document.getElementById("menu_audio");
 
-		if (getCookie("mute") == "false") {
-			      //It is, lets play!
-			      audio.play();
-			    }
-
-
-			  function getCookie(cname) {
-			    var name = cname + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var ca = decodedCookie.split(';');
-			    for (var i = 0; i < ca.length; i++) {
-			      var c = ca[i];
-			      while (c.charAt(0) == ' ') {
-			        c = c.substring(1);
-			      }
-			      if (c.indexOf(name) == 0) {
-			        return c.substring(name.length, c.length);
-			      }
-			    }
-			    return "";
-			  }
-	</script>
 
 	<p>
-		1. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		2. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		3. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		4. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		5. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		6. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		7. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		8. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		9. <span class = "aaa">AAAAAAAAAAAA</span>	<span>000</span><br>
-		10.<span id = "last">AAAAAAAAAAAA</span>	<span>000</span><br>
+		1. <span id="ranking1">AAAAAAAAAAAA</span> <span id="ranking1a">000</span><br>
+		2. <span id="ranking2">AAAAAAAAAAAA</span> <span id="ranking2a">000</span><br>
+		3. <span id="ranking3">AAAAAAAAAAAA</span> <span id="ranking3a">000</span><br>
+		4. <span id="ranking4">AAAAAAAAAAAA</span> <span id="ranking4a">000</span><br>
+		5. <span id="ranking5">AAAAAAAAAAAA</span> <span id="ranking5a">000</span><br>
+		6. <span id="ranking6">AAAAAAAAAAAA</span> <span id="ranking6a">000</span><br>
+		7. <span id="ranking7">AAAAAAAAAAAA</span> <span id="ranking7a">000</span><br>
+		8. <span id="ranking8">AAAAAAAAAAAA</span> <span id="ranking8a">000</span><br>
+		9. <span id="ranking9">AAAAAAAAAAAA</span> <span id="ranking9a">000</span><br>
+		10.<span id="ranking10">AAAAAAAAAAAA</span> <span id="ranking10a">000</span><br>
 	</p>
 
-	<button id = "back" onclick="location.href='menu.html'"></button>
+	<button id="back" onclick="location.href='menu.html'"></button>
+
 
 </body>
+
 </html>
