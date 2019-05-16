@@ -27,6 +27,21 @@ right: 0;
 	left: 20%;
 }
 
+input[type = submit]{
+	width: 50px;
+	border: 2px solid #aaa;
+	border-radius: 8px;
+	margin: 8px 0;
+	outline: none;
+	padding: 8px;
+	box-sizing: border-box;
+	border-color: #F49447;
+	background-color: #1B1F1C;
+	position: absolute;
+	top: 25%;
+	left:40%;
+}
+
 input[type = text]{
 	width: 150px;
 	border: 2px solid #aaa;
@@ -40,7 +55,6 @@ input[type = text]{
 	position: absolute;
 	top: 25%;
 	left:30%;
-
 }
 ::placeholder{
 	color: #F49447;

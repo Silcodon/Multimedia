@@ -1,58 +1,34 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Jogar</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/jogar.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<script type="text/javascript" src="../js/jogar.js"></script>
 </head>
+
 <body>
 	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
 	</audio>
 	<header>
-		<div class = parent>
+		<div class=parent>
 			<img class="back" src="../resources/backgr.png">
 			<img class="campanha" src="../resources/jogar.png">
 		</div>
 
 	</header>
-	<script type="text/javascript">
-		var audio=document.getElementById("menu_audio");
-
-		if (getCookie("mute") == "false") {
-			      //It is, lets play!
-			      audio.play();
-			    }
-
-
-			  function getCookie(cname) {
-			    var name = cname + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var ca = decodedCookie.split(';');
-			    for (var i = 0; i < ca.length; i++) {
-			      var c = ca[i];
-			      while (c.charAt(0) == ' ') {
-			        c = c.substring(1);
-			      }
-			      if (c.indexOf(name) == 0) {
-			        return c.substring(name.length, c.length);
-			      }
-			    }
-			    return "";
-			  }
-	</script>
 
 	<p> INSIRA O NOME: </p>
+	<input type="text" id="nome" name="fname" value="Insira o nome" onchange="myFunction()">
+	<input type="submit" value="Ok" onclick="myFunction()">
 
-	<input type = "text" placeholder="Your name">
 	<nav>
-		<button id = "back" onclick="location.href='menu.html'"></button>
-		<button id = "camp" onclick = "location.href='campanha.html'">CAMPANHA</button>
-		<button id = "endless" onclick = "location.href='endlessjogo.html'">ENDLESS</button>
-
-
-
+		<button id="back" onclick="location.href='menu.html'"></button>
+		<button id="camp" onclick="location.href='campanha.html'" onclick="myFunction()">CAMPANHA </button>
+		<button id="endless" onclick="location.href='endlessjogo.html'" onclick="myFunction()">ENDLESS</button>
 	</nav>
 </body>
+
 </html>
