@@ -112,17 +112,11 @@ canvas {
 }
 
 #musicamaisVol{
-  background-image: url(../resources/mais.png);
   background-size: cover;
   position: absolute;
   top:44%;
   left:48%;
-  background-position: center;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  cursor:pointer;
-  overflow: hidden;
+  background: none;
   width: 20px;
   height: 20px;
 
@@ -130,29 +124,17 @@ canvas {
 
 
 #musicamenosVol{
-  background-image: url(https://image.flaticon.com/icons/png/512/25/25232.png);
   position: absolute;
   top:44%;
   left:53%;
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  cursor:pointer;
-  overflow: hidden;
+  background: none;
   width: 20px;
   height: 20px;
 
 }
 
 #mutemusica{
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  overflow: hidden;
+  background: none;
   width: 20px;
   height: 20px;
   position: absolute;
@@ -162,48 +144,29 @@ canvas {
 }
 
 #sfxmenosVol{
-  background-image: url(https://image.flaticon.com/icons/png/512/25/25232.png);
   position: absolute;
   top:53%;
   left: 53%;
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  overflow: hidden;
+  background:none;
   width: 20px;
   height: 20px;
   cursor: pointer;
 
 }
 #sfxmaisVol{
-  background-image: url(../resources/mais.png);
   position: absolute;
   top:53%;
   left: 48%;
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  overflow: hidden;
+  background:none;
   width: 20px;
   height: 20px;
   cursor: pointer;
 
 }
 #mutesfx{
-  background-size: cover;
-  background-position: center;
-  background-color: transparent;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
+  background:none;
   width: 20px;
   height: 20px;
-  position: absolute;
   position: absolute;
   top:53%;
   left: 58%;

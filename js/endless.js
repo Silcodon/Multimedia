@@ -282,7 +282,7 @@
       this.dy = 0;
       this.jumpDy = -10;
       this.isFalling = false;
-      this.isJumping = false;
+      this.isJumping = 0;
 
       // spritesheets
       this.sheet = SpriteSheet('../resources/' + getCookie("skin") + ".png", this.width, this.height);
@@ -298,9 +298,9 @@
     update() {
 
       // jump if not currently jumping or falling
-      if ((teclas[0] == true || teclas[1] == true) && this.dy === 0 && !this.isJumping) {
+      if ((teclas[0] == true || teclas[1] == true) && this.dy === 0 && this.isJumping<2) {
         imgs.jump_music.currentTime = 0
-        this.isJumping = true;
+        this.isJumping++;
         this.dy = this.jumpDy;
         this.jumpCounter = 12;
         imgs.jump_music.play();
