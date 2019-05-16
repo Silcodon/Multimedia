@@ -19,7 +19,7 @@
   var frameSpeed = 4;
   var ceu = { x: 0, y: 0, speed: 0 };
   var backdrop = { x: 0, y: 0, speed: 0 };
-  var SOUNDS = ['background_music', "gameover_music", "jump_music"];
+  var SOUNDS = ['background_music', "gameover_music", "jump_music","click"];
   var IMAGES = ['bg', 'areia', 'backdrop', 'ceu', 'normal_walk', 'agua', 'bridge', 'box', 'grass1', 'grass2', 'cliff', 'spikes', 'slime', 'plant', 'bush1', 'bush2'];
   // platform variables
   var platformHeight, platformLength, gapLength;
@@ -785,18 +785,31 @@
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('pause').style.display = 'none';
     imgs = images;
+    imgs.background_music.volume=getCookie("vol");
+    imgs.gameover_music.volume=getCookie("vol");
     if (getCookie("mute") == "false") {
-      document.getElementById("mute").src = "../resources/unmute.png";
+      document.getElementById("mutemusica").src = "../resources/unmute.png";
       imgs.background_music.muted = false;
       imgs.gameover_music.muted = false;
-      imgs.jump_music.muted = false;
     }
     else {
-      document.getElementById("mute").src = "../resources/mute.png";
+      document.getElementById("mutemusica").src = "../resources/mute.png";
       imgs.background_music.muted = true;
       imgs.gameover_music.muted = true;
-      imgs.jump_music.muted = true;
     }
+
+    if (getCookie("mutesfx")=="false"){
+      document.getElementById("mutesfx").src = "../resources/unmute.png";
+      imgs.jump_music.muted=false;
+      imgs.click.muted=false;
+    }
+    else{
+      document.getElementById("mutesfx").src = "../resources/mute.png";
+      imgs.jump_music.muted=true;
+      imgs.click.muted=true;
+    }
+    imgs.jump_music.volume=getCookie("volsfx");
+    imgs.click.volume=getCookie("volsfx");
     ground = [];
     water = [];
     environment = [];
@@ -828,31 +841,126 @@
     animate();
   }
 
-  document.getElementById('mute').addEventListener('click', function () {
-    if (imgs.background_music.muted == false) {
-      document.getElementById("mute").src = "../resources/mute.png";
+  document.getElementById('mutemusica').addEventListener('click', function () {
+    if (getCookie("mute")=="false") {
+      document.getElementById("mutemusica").src = "../resources/mute.png";
       imgs.background_music.muted = true;
       imgs.gameover_music.muted = true;
-      imgs.jump_music.muted = true;
     }
     else {
-      document.getElementById("mute").src = "../resources/unmute.png";
+      if(getCookie('vol')<=0.1){
+        setCookie('vol',0.1,1);
+        imgs.background_music.volume=0.1;
+        imgs.gameover_music.volume=0.1;
+      }
+      document.getElementById("mutemusica").src = "../resources/unmute.png";
       imgs.background_music.muted = false;
       imgs.gameover_music.muted = false;
-      imgs.jump_music.muted = false;
     }
     setCookie('mute', imgs.background_music.muted, 1);
   });
+
+  //On play/mute sfx button/link click.
+  document.getElementById("mutesfx").addEventListener("click", function (e) {
+    e = e || window.event;
+    console.log(getCookie("mutesfx"));
+    if (getCookie("mutesfx") == "false") {
+      imgs.click.muted=true
+      imgs.jump_music.muted=true;
+      document.getElementById("mutesfx").src = "../resources/mute.png";
+    } else {
+      if(getCookie('volsfx')<=0.1){
+        setCookie('volsfx',0.1,1);
+        imgs.click.volume=0.1;
+        imgs.jump_music.volume=0.1;
+      }
+      //If mute cookie is set to true, unmute audio.
+      document.getElementById("mutesfx").src = "../resources/unmute.png";
+      imgs.click.muted = false;
+      imgs.jump_music.muted=false;
+    }
+    //Set/update mute cookie with new audio muted value.
+    setCookie('mutesfx', imgs.click.muted, 1);
+    e.preventDefault();
+  }, false);
+
   document.getElementById('continue').addEventListener('click', function () {
+    imgs.click.play();
     stop = false;
     document.getElementById('pause').style.display = 'none';
     animate();
   });
+
   document.getElementById('restart').addEventListener('click', function () {
+    imgs.click.play();
     addEventListener("keydown", pressdown);
-    startGame(imgs);
+    setTimeout(function(){startGame(imgs);},200);
   });
-  loadAssets(IMAGES, SOUNDS, startGame);
+
+  document.getElementById('endless').addEventListener('click', function () {
+    imgs.click.play();
+    setTimeout(function(){window.location.href='jogar.html';},200);
+  });
+
+  document.getElementById('endless2').addEventListener('click', function () {
+    imgs.click.play();
+    setTimeout(function(){window.location.href='jogar.html';},200);
+  });
+
+  document.getElementById("musicamaisVol").addEventListener("click",function(){
+      imgs.background_music.volume+=0.1;
+      imgs.gameover_music.volume+=0.1;
+      setCookie("vol",imgs.background_music.volume,1);
+      console.log(getCookie("vol"));
+      if(getCookie("vol")>=0.1){
+        imgs.background_music.muted=false;
+        imgs.gameover_music.muted=false;
+        setCookie("mute",false,1);
+        document.getElementById("mutemusica").src = "../resources/unmute.png";
+      }
+  });
+  document.getElementById("musicamenosVol").addEventListener("click",function(){
+      imgs.background_music.volume-=0.1;
+      imgs.gameover_music.volume-=0.1;
+      setCookie("vol",imgs.background_music.volume,1);
+      console.log(getCookie("vol"));
+      if (getCookie("vol")<=0.1){
+        setCookie("mute",true,1);
+        document.getElementById("mutemusica").src = "../resources/mute.png";
+      }
+  });
+
+  document.getElementById("sfxmaisVol").addEventListener("click",function(){
+    //Check if audio has been started before.
+        if (imgs.click.volume>=0.9) {
+          //It has not, lets play it!
+          imgs.click.muted=false;
+          imgs.jump_music.muted=false;
+          setCookie("mutesfx",false,1);
+          document.getElementById("mutesfx").src = "../resources/unmute.png";
+        }
+      imgs.click.volume+=0.1;
+      imgs.jump_music.volume+=0.1;
+      setCookie("volsfx",imgs.click.volume,1);
+      console.log(getCookie("volsfx"));
+      if(getCookie("volsfx")>=0.1){
+        imgs.click.muted=false;
+        imgs.jump_music.muted=false;
+        setCookie("mutesfx",false,1);
+        document.getElementById("mutesfx").src = "../resources/unmute.png";
+      }
+  });
+  document.getElementById("sfxmenosVol").addEventListener("click",function(){
+      imgs.click.volume-=0.1;
+      imgs.jump_music.volume-=0.1;
+      setCookie("volsfx",imgs.click.volume,1);
+      console.log(getCookie("volsfx"));
+      if (getCookie("volsfx")<=0.1){
+        setCookie("mutesfx",true,1);
+        document.getElementById("mutesfx").src = "../resources/mute.png";
+      }
+  });
+  window.addEventListener("load",function(){loadAssets(IMAGES, SOUNDS, startGame);});
 
 
 })();

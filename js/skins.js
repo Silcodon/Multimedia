@@ -8,6 +8,20 @@
 
 function main() {
 	var audio=document.getElementById("menu_audio");
+	var click_audio=document.getElementById("click_audio");
+	var click_skin=document.getElementById("click_skin");
+	audio.volume=getCookie("vol");
+    click_audio.volume=getCookie("volsfx");
+    click_skin.volume=getCookie("volsfx");
+
+    if (getCookie("mutesfx")=="false"){
+      click_audio.muted=false;
+      click_skin.muted=false;
+    }
+    else{
+      click_audio.muted=true;
+      click_skin.muted=true;
+    }
 
 		if (getCookie("mute") == "false") {
 			//It is, lets play!
@@ -27,6 +41,7 @@ function main() {
 		}
 	document.getElementById('skin1').addEventListener('click',function(){
 		setCookie("skin","normal_walk",1);
+		click_skin.play();
 		document.getElementById("skin1").style.border = "thick solid #0000FF";
 		document.getElementById("skin2").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin3").style.border = "medium solid #1B1F1C";
@@ -35,6 +50,7 @@ function main() {
 	});
 	document.getElementById('skin2').addEventListener('click',function(){
 		setCookie("skin","normal_walk2",1);
+		click_skin.play();
 		document.getElementById("skin1").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin2").style.border = "thick solid #0000FF";
 		document.getElementById("skin3").style.border = "medium solid #1B1F1C";
@@ -43,6 +59,7 @@ function main() {
 	});
 	document.getElementById('skin3').addEventListener('click',function(){
 		setCookie("skin","normal_walk3",1);
+		click_skin.play();
 		document.getElementById("skin1").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin2").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin3").style.border = "thick solid #0000FF";
@@ -51,6 +68,7 @@ function main() {
 	});
 	document.getElementById('skin4').addEventListener('click',function(){
 		setCookie("skin","normal_walk4",1);
+		click_skin.play();
 		document.getElementById("skin1").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin2").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin3").style.border = "medium solid #1B1F1C";
@@ -58,8 +76,12 @@ function main() {
 
 	});
 
+document.getElementById("back").addEventListener("click",play1,false);
 
-
+function play1(){
+  	click_audio.play();
+  	setTimeout(function(){window.location.href='menu.html';},200);
+}
 
 }
 

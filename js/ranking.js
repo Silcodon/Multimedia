@@ -5,12 +5,27 @@
 
 function main() {
     var audio = document.getElementById("menu_audio");
+    var click_audio=document.getElementById("click_audio");
+    audio.volume=getCookie("vol");
+    click_audio.volume=getCookie("volsfx");
 
+    if (getCookie("mutesfx")=="false"){
+      click_audio.muted=false;
+    }
+    else{
+      click_audio.muted=true;
+    }
     if (getCookie("mute") == "false") {
         //It is, lets play!
         audio.play();
     }
+    var click_audio=document.getElementById("click_audio");
+    document.getElementById("back").addEventListener("click",play1,false);
 
+    function play1(){
+        click_audio.play();
+        setTimeout(function(){window.location.href='menu.html';},200);
+    }
 
     function getCookie(cname) {
         var name = cname + "=";
@@ -42,4 +57,5 @@ function main() {
             document.getElementById(str1.concat(str2, str3)).innerHTML = getCookie(str1.concat(str2, str3));
         }
     }
+
 }

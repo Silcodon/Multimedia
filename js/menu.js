@@ -6,44 +6,57 @@
 }());
 
 function main() {
-
-  var camp = document.getElementById("camp");
-  var end = document.getElementById("end");
+  var jogar = document.getElementById("play");
   var rank = document.getElementById("rank");
   var skin = document.getElementById("skin");
   var help = document.getElementById("help");
-  var options = document.getElementById("options");
-  if (getCookie("mute") == "false") {
-    document.getElementById("mute").src = "../resources/unmute.png";
-  } else {
-    document.getElementById("mute").src = "../resources/mute.png";
-  }
-
-  //Get audio element.
+  var creditos = document.getElementById("creditos");
+  var settings= document.getElementById("options");
+    //Get audio element.
   var audio = document.getElementById("background_audio");
-
-  //Get current time/date.
-  var date = new Date();
-  date.setTime(+ date + (1 * 24 * 60 * 60 * 1000)); // _days_ * hours/day *  mins/hour * sec/min * ms/s (Change first number to change how many days cookie is valid for)
-
-  function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-
-  }
-
-  if (document.cookie.indexOf("skin=") == -1) {
+  var click_audio=document.getElementById("click_audio");
+ 
+ //Verifica se a cookie das skins existe
+ if (document.cookie.indexOf("skin=") == -1) {
     //It does not, lets create it!
 
     setCookie('skin', "normal_walk", 1);
   }
 
-  //Check if mute cookie exists.
+//Verifica se a cookie do volume existe
+if (document.cookie.indexOf("vol=") == -1) {
+    //It does not, lets create it!
 
+    setCookie('vol', 1, 1);
+  }
+
+//Verifica se mute sfc ja existe
+if (document.cookie.indexOf("mutesfx=") == -1) {
+    //It does not, lets create it!
+
+    setCookie('mutesfx', false, 1);
+  }
+
+  //Verifica se vol sfc ja existe
+  if (document.cookie.indexOf("volsfx=") == -1) {
+      //It does not, lets create it!
+
+      setCookie('volsfx', 1, 1);
+    }
+    audio.volume=getCookie("vol");
+    click_audio.volume=getCookie("volsfx");
+
+    if (getCookie("mutesfx")=="false"){
+      click_audio.muted=false;
+    }
+    else{
+      click_audio.muted=true;
+    }
+
+
+//Check if mute cookie exists.
+  console.log(getCookie("mute"));
   if (document.cookie.indexOf("mute=") == -1) {
-    document.getElementById("mute").src = "../resources/mute.png";
     //It does not, lets create it!
 
     setCookie('mute', false, 1);
@@ -52,12 +65,13 @@ function main() {
   } else {
     //Check if mute cookie is set to false.
     if (getCookie("mute") == "false") {
-      document.getElementById("mute").src = "../resources/unmute.png";
       //It is, lets play!
       audio.play();
     }
   }
-
+  //Get current time/date.
+  var date = new Date();
+  date.setTime(+ date + (1 * 24 * 60 * 60 * 1000)); // _days_ * hours/day *  mins/hour * sec/min * ms/s (Change first number to change how many days cookie is valid for)
 
   function getCookie(cname) {
     var name = cname + "=";
@@ -75,45 +89,49 @@ function main() {
     return "";
   }
 
-  //On play/mute button/link click.
-  document.getElementById("mute").addEventListener("click", function (e) {
-    e = e || window.event;
-    if (getCookie("mute") == "false") {
-      //If mute cookie is set to false, mute audio.
-      audio.muted = true;
-      document.getElementById("mute").src = "../resources/mute.png";
-    } else {
-      //If mute cookie is set to true, unmute audio.
-      document.getElementById("mute").src = "../resources/unmute.png";
-      audio.muted = false;
-      //Check if audio has been started before.
-      if (audio.paused || audio.currentTime > 0) {
-        //It has not, lets play it!
-        audio.play();
-      }
-    }
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 
-    //Set/update mute cookie with new audio muted value.
-    setCookie('mute', audio.muted, 1);
-    e.preventDefault();
-  }, false);
+  }
+jogar.addEventListener("click",play1,false);
+rank.addEventListener("click",play2,false);
+skin.addEventListener("click", play3,false);
+help.addEventListener("click",play4,false);
+creditos.addEventListener("click", play5,false);
+settings.addEventListener("click",play6,false);
 
 
+function play1(){
+  	click_audio.play();
+  	setTimeout(function(){window.location.href='jogar.html';},200);
+}
+
+function play2(){
+  	click_audio.play();
+  	setTimeout(function(){window.location.href='ranking.html';},200);
+}
+function play3(){
+  	click_audio.play();
+  	setTimeout(function(){window.location.href='skins.html';},200);
+}
+function play4(){
+  	click_audio.play();
+  	setTimeout(function(){window.location.href='ajuda.html';},200);
+}
+function play5(){
+  	click_audio.play();
+  	setTimeout(function(){window.location.href='creditos.html';},200);
+}
+function play6(){
+  click_audio.play();
+  setTimeout(function(){window.location.href='settings.html';},200);
+}
 
 
 
-
-  /*
-	camp.addEventListener("click", campClickHandler);
-
-*/
-  /*
-    end.addEventListener("click", endClickHandler);
-  
-    rank.addEventListener("click", rankClickHandler);
-    skin.addEventListener("click", skinClickHandler);
-    help.addEventListener("click", helpClickHandler);
-    options.addEventListener("click", optionsClickHandler);*/
 
 
 }

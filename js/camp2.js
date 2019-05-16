@@ -37,7 +37,6 @@ function create() {
   const gLayer = map.createStaticLayer("GroundLayer", tileset, 0,0);
   const bgLayer = map.createStaticLayer("BackgroundLayer", tileset, 0,0);
 
-
   
   //Fisica do jogo
   
@@ -67,6 +66,7 @@ function create() {
   this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels); //Camara nao sair das bordas
   this.cameras.main.startFollow(player); //Seguir o player
 
+  
 }
 
 function update(time, delta) {

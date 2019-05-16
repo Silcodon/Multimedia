@@ -5,12 +5,15 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/settings.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<script type="text/javascript" src="../js/settings.js"></script>
 </head>
 <body>
-	<audio src="../resources/Menus.mp3" autoplay loop>
-	<p>Seu navegador não suporta o elemento audio </p>
+	<audio loop id="background_audio">
+		<source src="../resources/Menus.mp3" type="audio/mpeg">
 	</audio>
+	<audio id="click_audio">
+		<source src="../resources/click.mp3" type="audio/mpeg">
+		</audio>
 	<header>
 		<div class = parent>
 			<img class="back" src="../resources/backgr.png">
@@ -28,11 +31,15 @@
 	<nav>
 		<button id = "musicamaisVol"></button>
 		<button id = "musicamenosVol"></button>
-		<button id = "musicamute"></button>
-		<button id = "back" onclick="location.href='menu.html'"></button>
+		<a href="#">
+			<img id='mutemusica' border="0" />
+		</a>
+		<button id = "back"></button>
 		<button id = "sfxmaisVol"></button>
 		<button id = "sfxmenosVol"></button>
-		<button id = "sfxmute"></button>
+		<a href="#">
+			<img id='mutesfx' border="0" />
+		</a>
 
 
 

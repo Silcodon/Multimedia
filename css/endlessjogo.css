@@ -34,12 +34,6 @@ right: 0;
   position: absolute;
 }
 
-.mute{
-  position: relative;
-  padding-top: 50px;
-
-
-}
 
 .loading {	
   padding-top: 100px;
@@ -102,4 +96,116 @@ canvas {
   margin: auto;
   border: 1px solid black;
   z-index: 1;
+}
+
+#music{
+  position: absolute;
+  top:40%;
+  left: 35%;
+  padding-top: 0px;
+}
+
+#sfx{
+  position: absolute;
+  left:40%;
+  top: 50%;
+}
+
+#musicamaisVol{
+  background-image: url(../resources/mais.png);
+  background-size: cover;
+  position: absolute;
+  top:44%;
+  left:48%;
+  background-position: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+
+}
+
+
+#musicamenosVol{
+  background-image: url(https://image.flaticon.com/icons/png/512/25/25232.png);
+  position: absolute;
+  top:44%;
+  left:53%;
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+
+}
+
+#mutemusica{
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top:44%;
+  left: 58%;
+  cursor: pointer;
+}
+
+#sfxmenosVol{
+  background-image: url(https://image.flaticon.com/icons/png/512/25/25232.png);
+  position: absolute;
+  top:53%;
+  left: 53%;
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+}
+#sfxmaisVol{
+  background-image: url(../resources/mais.png);
+  position: absolute;
+  top:53%;
+  left: 48%;
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+
+}
+#mutesfx{
+  background-size: cover;
+  background-position: center;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  position: absolute;
+  top:53%;
+  left: 58%;
+  cursor: pointer;
 }

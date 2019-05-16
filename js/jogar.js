@@ -36,9 +36,36 @@ function myFunction() {
 
 function main() {
 	var audio = document.getElementById("menu_audio");
+	var click_audio=document.getElementById("click_audio");
+	audio.volume=getCookie("vol");
+    click_audio.volume=getCookie("volsfx");
+
+    if (getCookie("mutesfx")=="false"){
+      click_audio.muted=false;
+    }
+    else{
+      click_audio.muted=true;
+    }
+    document.getElementById("back").addEventListener("click",play1,false);
+    document.getElementById("camp").addEventListener("click",play2,false);
+    document.getElementById("endless").addEventListener("click",play3,false);
+
+    function play1(){
+        click_audio.play();
+        setTimeout(function(){window.location.href='menu.html';},200);
+    }
+    function play2(){
+    	click_audio.play();
+        setTimeout(function(){window.location.href='campanha.html';},200);
+    }
+    function play3(){
+    	click_audio.play();
+        setTimeout(function(){window.location.href='endlessjogo.html';},200);
+    }
 
 	if (getCookie("mute") == "false") {
 		//It is, lets play!
 		audio.play();
+
 	}
 }

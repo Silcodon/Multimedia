@@ -70,17 +70,17 @@ button:hover{
 	right: 70%;
 }
 
-#mute{
+#options{
+	background-image: url(../resources/options.png);
 	background-size: cover;
 	background-position: center;
-	background-color: transparent;
-	outline: none;
-	border: none;
-	overflow: hidden;
 	width: 80px;
 	height: 80px;
 	position: absolute;
-	top: 50%;
-	left: 60%;
+	top:50%;
+	left:60%;
 
+}
+#options:hover{
+	background-image: url("../resources/155243066241755137.png");
 }

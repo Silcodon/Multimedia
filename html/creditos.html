@@ -10,6 +10,7 @@
 <body>
 	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
 	</audio>
+	<audio id="click_audio" src="../resources/click.mp3"></audio>
 	<header>
 		<div class = parent>
 			<img class="back" src="../resources/backgr.png">
@@ -18,8 +19,26 @@
 		</div>
 
 	</header>
+	<nav>
+		<button id = "back"></button>
+	</nav>
 	<script type="text/javascript">
 		var audio=document.getElementById("menu_audio");
+		var click_audio=document.getElementById("click_audio");
+	    document.getElementById("back").addEventListener("click",play1,false);
+	    audio.volume=getCookie("vol");
+	    click_audio.volume=getCookie("volsfx");
+
+	    if (getCookie("mutesfx")=="false"){
+	      click_audio.muted=false;
+	    }
+	    else{
+	      click_audio.muted=true;
+	    }
+	    function play1(){
+	        click_audio.play();
+	        setTimeout(function(){window.location.href='menu.html';},200);
+	    }
 
 		if (getCookie("mute") == "false") {
 			      //It is, lets play!
@@ -50,9 +69,5 @@
 	</div>
 
 
-
-	<nav>
-		<button id = "back" onclick="location.href='menu.html'"></button>
-	</nav>
 </body>
 </html>
