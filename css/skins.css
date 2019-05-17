@@ -1,12 +1,4 @@
-body {
-padding: 0;
-margin: 0;
-position:fixed;
-top:0;
-bottom: 0;
-left: 0;
-right: 0;
-}
+
 
 .back{
 	position: absolute;
@@ -19,8 +11,8 @@ right: 0;
 
 .skins{
 	position: absolute;
-	top: 10%;
-	left: 20%;
+	top: 70px;
+	left: 350px;
 }
 
 
@@ -28,34 +20,29 @@ right: 0;
 	width: 100px;
 	height: 150px;
 	position: absolute;
-	top:30%;
-	left:30%;
+	top:230px;
+	left:380px;
 	background-color: #F49447;
+	border-color: #1B1F1C;
 	background-image: url(../resources/skin1.png);
 	background-position: center;
 	cursor: pointer;
 	background-size: 100% 100%;
-	border:medium solid #1B1F1C;
 }
-#skin1{
-	background-image: url(../resources/skin_1_parado.png);
-	left:20%;
-}
-
 #skin2{
-	left:27.5%;
+	left:530px;
 }
 #skin3{
-	left:35%;
+	left:680px;
 }
 #skin4{
-	left:42.5%;
+	left:830px;
 }
 #back{
 	position: absolute;
 	background-image: url(../resources/back.png);
-	top: 70%;
-	left: 70%;
+	top:400px;
+	left: 875px;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;

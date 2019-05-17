@@ -6,8 +6,8 @@ body,
 }
 
 #game-container {
-  min-width: 100vw;
   min-height: 100vh;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,4 +15,24 @@ body,
 
 #game-container>canvas {
   border-radius: 5px;
+
+}
+
+#endless{
+
+	position: absolute;
+	top: 340px;
+	right: 720px;
+
+	width:170px;
+	height:60px;
+	font-size: 25px;
+	border-radius: 8px;
+	font-family: Splatch;
+	background-color: #F49447;
+	cursor: pointer;
+	border-color: black;
+	transition: background-color 0.5s, color 0.5s;
+
+
 }

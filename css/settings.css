@@ -20,7 +20,7 @@
 	border-radius: 8px;
 	font-family: Splatch;
 	position: absolute;
-	top: 230px;
+	top: 225px;
 	left: 350px;
 	color: black;
 	-webkit-text-stroke-width: 0.5px;
@@ -32,7 +32,7 @@ font-size: 30px;
 border-radius: 8px;
 font-family: Splatch;
 position: absolute;
-top: 310px;
+top: 300px;
 left: 350px;
 color: black;
 -webkit-text-stroke-width: 0.5px;
@@ -71,7 +71,10 @@ button{
 	height: 40px;
 
 }
-#mutemusica{
+#musicamute{
+	background-image: url(../resources/mute.png);
+	top:270px;
+	left: 650px;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
@@ -80,10 +83,6 @@ button{
 	overflow: hidden;
 	width: 40px;
 	height: 40px;
-	position: absolute;
-	top:270px;
-	left: 650px;
-	
 }
 #sfxmenosVol{
 	background-image: url(https://image.flaticon.com/icons/png/512/25/25232.png);
@@ -113,7 +112,10 @@ button{
 	height: 40px;
 
 }
-#mutesfx{
+#sfxmute{
+	background-image: url(../resources/mute.png);
+	top:345px;
+	left: 575px;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
@@ -122,16 +124,12 @@ button{
 	overflow: hidden;
 	width: 40px;
 	height: 40px;
-	position: absolute;
-	top:345px;
-	left: 575px;
 }
 
 #back{
-	position: absolute;
 	background-image: url(../resources/back.png);
-	top:70%;
-	left: 70%;
+	top:375px;
+	left: 700px;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
@@ -140,5 +138,4 @@ button{
 	overflow: hidden;
 	width: 50px;
 	height: 50px;
-	cursor: pointer;
 }
