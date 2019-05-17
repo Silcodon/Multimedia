@@ -120,6 +120,7 @@ canvas {
   width: 20px;
   height: 20px;
 
+  cursor: pointer;
 }
 
 
@@ -131,6 +132,7 @@ canvas {
   width: 20px;
   height: 20px;
 
+  cursor: pointer;
 }
 
 #mutemusica{
