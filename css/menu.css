@@ -1,6 +1,11 @@
 body {
 padding: 0;
 margin: 0;
+position:fixed;
+top:0;
+bottom: 0;
+left: 0;
+right: 0;
 }
 
 .back{
@@ -11,20 +16,12 @@ margin: 0;
 }
 .text{
 	position: relative;
-	top: 20px;
-	left: 270px;
+	top: 20%;
+	left: 10%;
 
 }
 
-input[type = text]{
-	width: 100px;
-	border: 2px solid #aaa;
-	border-radius: 8px;
-	margin: 8px 0;
-	outline: none;
-	padding: 8px;
-	box-sizing: border-box;
-}
+
 button{
 
 	width:300px;
@@ -44,39 +41,43 @@ button:hover{
 	color: #F49447;
 }
 #play{
-	position: relative;
-	left: 300px;
+	position: absolute;
+	top: 32%;
+	right: 70%;
 }
 
 #rank{
-	position: relative;
-	top: 80px;
-	left: 10px;
+	position: absolute;
+	top: 40%;
+	right: 69%;
 }
 
 #skin{
-	position: relative;
-	top: 160px;
-	right: 310px;
+	position: absolute;
+	top: 48%;
+	right: 70%;
 }
 
 #help{
-	position: relative;
-	top: 240px;
-	right: 600px;
+	position: absolute;
+	top: 56%;
+	right: 69%;
 }
 
-#mute{
+#creditos{
+	position: absolute;
+	top: 64%;
+	right: 70%;
+}
+
+#options{
 	background-size: cover;
 	background-position: center;
-	background-color: transparent;
-	outline: none;
-	border: none;
-	overflow: hidden;
 	width: 80px;
 	height: 80px;
-	position: relative;
-	top:260px;
-	right:150px;
+	position: absolute;
+	top:60%;
+	left:60%;
+	cursor: pointer;
 
 }
