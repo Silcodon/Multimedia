@@ -1,12 +1,4 @@
-body {
-padding: 0;
-margin: 0;
-position:fixed;
-top:0;
-bottom: 0;
-left: 0;
-right: 0;
-}
+
 
 .back{
 	position: absolute;
@@ -19,14 +11,14 @@ right: 0;
 
 .ajuda{
 	position: absolute;
-	top: 10%;
-	left: 20%;
+	top: 70px;
+	left: 300px;
 }
 
 
 p{
-	width:550%;
-	height:40%;
+	width:550px;
+	height:40px;
 	border-radius: 8px;
 	font-family: Splatch;
 	position: absolute;
@@ -35,41 +27,21 @@ p{
    	-webkit-text-stroke-color:#F49447;
 }
 
-#endlesstexto{
-	font-size: 2.5vw;
-	top:20%;
-	left:70%;
-
-}
-
-#campanhatexto{
-	font-size: 2.5vw;
-	top:20%;
-	left: 40%;
-
-}
-
 #controls{
-	font-size: 2.5vw;
-	top: 20%;
-	left: 20%;
-}
-
-#jumpendless{
-	font-size: 1.5vw;
-	top: 33%;
-	left: 65%;
+	font-size: 30px;
+	top: 200px;
+	left: 320px;
 }
 
 #jump{
-	font-size: 1.5vw;
-	top: 33%;
-	left: 35%;
+	font-size: 25px;
+	top: 210px;
+	left: 625px;
 }
 #crouch{
-	font-size: 1.5vw;
-	top: 40%;
-	left: 35%;
+	font-size: 25px;
+	top: 290px;
+	left: 625px;
 }
 
 #start{
@@ -95,8 +67,8 @@ p{
 #back{
 	position: absolute;
 	background-image: url(../resources/back.png);
-	top:70%;
-	left: 70%;
+	top:400px;
+	left: 870px;
 	background-size: cover;
 	background-position: center;
 	background-color: transparent;
