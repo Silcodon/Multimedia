@@ -43,9 +43,11 @@ if (document.cookie.indexOf("mutesfx=") == -1) {
 
       setCookie('volsfx', 1, 1);
     }
+    //Volume musica
     audio.volume=getCookie("vol");
+    //Volume botoes
     click_audio.volume=getCookie("volsfx");
-
+    //mute botoes
     if (getCookie("mutesfx")=="false"){
       click_audio.muted=false;
     }
@@ -103,28 +105,32 @@ help.addEventListener("click",play4,false);
 creditos.addEventListener("click", play5,false);
 settings.addEventListener("click",play6,false);
 
-
+//Funcao para menu jogar
 function play1(){
   	click_audio.play();
   	setTimeout(function(){window.location.href='jogar.html';},200);
 }
-
+//Funcao para menu ranking
 function play2(){
   	click_audio.play();
   	setTimeout(function(){window.location.href='ranking.html';},200);
 }
+//Funcao para menu skins
 function play3(){
   	click_audio.play();
   	setTimeout(function(){window.location.href='skins.html';},200);
 }
+//Funcao para menu ajuda
 function play4(){
   	click_audio.play();
   	setTimeout(function(){window.location.href='ajuda.html';},200);
 }
+//Funcao para menu creditos
 function play5(){
   	click_audio.play();
   	setTimeout(function(){window.location.href='creditos.html';},200);
 }
+//Funcao para as definiçoes
 function play6(){
   click_audio.play();
   setTimeout(function(){window.location.href='settings.html';},200);

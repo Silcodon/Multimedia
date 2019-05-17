@@ -10,10 +10,12 @@ function main() {
 	var audio=document.getElementById("menu_audio");
 	var click_audio=document.getElementById("click_audio");
 	var click_skin=document.getElementById("click_skin");
+	//Volume da musica
 	audio.volume=getCookie("vol");
+	//Volume dos botoes
     click_audio.volume=getCookie("volsfx");
     click_skin.volume=getCookie("volsfx");
-
+    //Mute dos botoes
     if (getCookie("mutesfx")=="false"){
       click_audio.muted=false;
       click_skin.muted=false;
@@ -22,11 +24,12 @@ function main() {
       click_audio.muted=true;
       click_skin.muted=true;
     }
-
+    	//Mute da musica
 		if (getCookie("mute") == "false") {
 			//It is, lets play!
 			audio.play();
 		}
+		//ver qual skin esta selecionado
 		if (getCookie("skin")=="normal_walk"){
 			document.getElementById("skin1").style.border = "thick solid #0000FF";
 		}
@@ -39,6 +42,8 @@ function main() {
 		if (getCookie("skin")=="normal_walk4"){
 			document.getElementById("skin4").style.border = "thick solid #0000FF";
 		}
+		
+		//Ao clicar num dos skins alterar qual esta selecionado
 	document.getElementById('skin1').addEventListener('click',function(){
 		setCookie("skin","normal_walk",1);
 		click_skin.play();
@@ -77,7 +82,7 @@ function main() {
 	});
 
 document.getElementById("back").addEventListener("click",play1,false);
-
+//Voltar ao menu
 function play1(){
   	click_audio.play();
   	setTimeout(function(){window.location.href='menu.html';},200);

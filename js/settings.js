@@ -7,13 +7,13 @@
 }());
 
 function main() {
-
+  //Mute da musica
  if (getCookie("mute") == "false") {
       document.getElementById("mutemusica").src = "../resources/unmute.png";
     } else {
       document.getElementById("mutemusica").src = "../resources/mute.png";
   }
-
+  //Mute dos botoes
   if (getCookie("mutesfx") == "false") {
       document.getElementById("mutesfx").src = "../resources/unmute.png";
     } else {
@@ -23,7 +23,9 @@ function main() {
   //Get audio element.
   var audio = document.getElementById("background_audio");
   var click_audio=document.getElementById("click_audio");
+  //Volume da musica
   audio.volume=getCookie("vol");
+  //Volume dos botoes
   click_audio.volume=getCookie("volsfx");
 
   //Get current time/date.
@@ -98,9 +100,11 @@ function main() {
       console.log('entrou');
       //If mute cookie is set to false, mute audio.
       audio.muted = true;
+      //Mudar imagem do botao mute
       document.getElementById("mutemusica").src = "../resources/mute.png";
     } else {
       if(getCookie('vol')<=0.1){
+        //Se clicar no botao de mute enquanto esta mute e o volume estiver a 0, mete o som com o valor minimo
         setCookie('vol',0.1,1);
         audio.volume=0.1;
       }
@@ -124,10 +128,13 @@ function main() {
     e = e || window.event;
     console.log(getCookie("mutesfx"));
     if (getCookie("mutesfx") == "false") {
+      //Mute nos botoes
       click_audio.muted=true
+      //Altera a imagem do botao mute
       document.getElementById("mutesfx").src = "../resources/mute.png";
     } else {
       if(getCookie('volsfx')<=0.1){
+        //Se clicar no botao de mute enquanto esta mute e o volume estiver a 0, mete o som com o valor minimo
         setCookie('volsfx',0.1,1);
         click_audio.volume=0.1;
       }
@@ -142,7 +149,7 @@ function main() {
 
 
   document.getElementById("back").addEventListener("click",play1,false);
-
+  //Funcao para voltar ao menu principal
   function play1(){
     click_audio.play();
     setTimeout(function(){window.location.href="menu.html";},200);
@@ -153,10 +160,12 @@ function main() {
         if (audio.paused || audio.currentTime > 0 || audio.volume>=0.9) {
           //It has not, lets play it!
           audio.play();
+          //Se estivesse mute , deixar de estar e alterar simbolo do mute
           audio.muted=false;
           setCookie("mute",false,1);
           document.getElementById("mutemusica").src = "../resources/unmute.png";
         }
+        //Incrementar o volume
       audio.volume+=0.1;
       setCookie("vol",audio.volume,1);
       console.log(getCookie("vol"));
@@ -172,10 +181,12 @@ function main() {
       }
   });
   document.getElementById("musicamenosVol").addEventListener("click",function(){
+    //Diminuir o volume
       audio.volume-=0.1;
       setCookie("vol",audio.volume,1);
       console.log(getCookie("vol"));
       if (getCookie("vol")<=0.1){
+        //Se volume estiver a 0 e como se tivesse mute
         setCookie("mute",true,1);
         document.getElementById("mutemusica").src = "../resources/mute.png";
       }
@@ -189,6 +200,7 @@ function main() {
           setCookie("mutesfx",false,1);
           document.getElementById("mutesfx").src = "../resources/unmute.png";
         }
+        //incrementar volume
       click_audio.volume+=0.1;
       setCookie("volsfx",click_audio.volume,1);
       console.log(getCookie("volsfx"));
@@ -199,10 +211,12 @@ function main() {
       }
   });
   document.getElementById("sfxmenosVol").addEventListener("click",function(){
+    //Diminuir volume
       click_audio.volume-=0.1;
       setCookie("volsfx",click_audio.volume,1);
       console.log(getCookie("volsfx"));
       if (getCookie("volsfx")<=0.1){
+        //Se estiver a 0 e como se tivesse mute
         setCookie("mutesfx",true,1);
         document.getElementById("mutesfx").src = "../resources/mute.png";
       }

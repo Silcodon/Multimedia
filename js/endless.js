@@ -840,7 +840,7 @@
 
     animate();
   }
-
+  //On play/mute sfx button/link click.
   document.getElementById('mutemusica').addEventListener('click', function () {
     if (getCookie("mute")=="false") {
       document.getElementById("mutemusica").src = "../resources/mute.png";
@@ -883,30 +883,30 @@
     setCookie('mutesfx', imgs.click.muted, 1);
     e.preventDefault();
   }, false);
-
+  //Continue button
   document.getElementById('continue').addEventListener('click', function () {
     imgs.click.play();
     stop = false;
     document.getElementById('pause').style.display = 'none';
     animate();
   });
-
+  //Try again button
   document.getElementById('restart').addEventListener('click', function () {
     imgs.click.play();
     addEventListener("keydown", pressdown);
     setTimeout(function(){startGame(imgs);},200);
   });
-
+  //Sair para o menu
   document.getElementById('endless').addEventListener('click', function () {
     imgs.click.play();
     setTimeout(function(){window.location.href='jogar.html';},200);
   });
-
+  //Sair para o menu
   document.getElementById('endless2').addEventListener('click', function () {
     imgs.click.play();
     setTimeout(function(){window.location.href='jogar.html';},200);
   });
-
+  //Botao Mais Volume
   document.getElementById("musicamaisVol").addEventListener("click",function(){
       imgs.background_music.volume+=0.1;
       imgs.gameover_music.volume+=0.1;
@@ -919,6 +919,7 @@
         document.getElementById("mutemusica").src = "../resources/unmute.png";
       }
   });
+  //Botao Menos Volume
   document.getElementById("musicamenosVol").addEventListener("click",function(){
       imgs.background_music.volume-=0.1;
       imgs.gameover_music.volume-=0.1;
@@ -929,7 +930,7 @@
         document.getElementById("mutemusica").src = "../resources/mute.png";
       }
   });
-
+  //Botao Mais Volume SFX
   document.getElementById("sfxmaisVol").addEventListener("click",function(){
     //Check if audio has been started before.
         if (imgs.click.volume>=0.9) {
@@ -950,6 +951,7 @@
         document.getElementById("mutesfx").src = "../resources/unmute.png";
       }
   });
+  //Botao Menos Volume SFX
   document.getElementById("sfxmenosVol").addEventListener("click",function(){
       imgs.click.volume-=0.1;
       imgs.jump_music.volume-=0.1;
