@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../css/creditos.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+	<script type="text/javascript" src="../js/creditos.js"></script>
 </head>
 <body>
 	<audio id="menu_audio" src="../resources/Menus.mp3" loop="loop">
@@ -22,46 +22,6 @@
 	<nav>
 		<button id = "back"></button>
 	</nav>
-	<script type="text/javascript">
-		var audio=document.getElementById("menu_audio");
-		var click_audio=document.getElementById("click_audio");
-	    document.getElementById("back").addEventListener("click",play1,false);
-	    audio.volume=getCookie("vol");
-	    click_audio.volume=getCookie("volsfx");
-
-	    if (getCookie("mutesfx")=="false"){
-	      click_audio.muted=false;
-	    }
-	    else{
-	      click_audio.muted=true;
-	    }
-	    function play1(){
-	        click_audio.play();
-	        setTimeout(function(){window.location.href='menu.html';},200);
-	    }
-
-		if (getCookie("mute") == "false") {
-			      //It is, lets play!
-			      audio.play();
-			    }
-
-
-			  function getCookie(cname) {
-			    var name = cname + "=";
-			    var decodedCookie = decodeURIComponent(document.cookie);
-			    var ca = decodedCookie.split(';');
-			    for (var i = 0; i < ca.length; i++) {
-			      var c = ca[i];
-			      while (c.charAt(0) == ' ') {
-			        c = c.substring(1);
-			      }
-			      if (c.indexOf(name) == 0) {
-			        return c.substring(name.length, c.length);
-			      }
-			    }
-			    return "";
-			  }
-	</script>
 	<div id="creditos">
 	<p id = "antonio">António Marques Maria</p>
 	<p id = "carlos">Carlos Miguel da Luz Lima</p>
