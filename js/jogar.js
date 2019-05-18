@@ -28,45 +28,42 @@ function getCookie(cname) {
 
 function myFunction() {
 	var x = document.getElementById("nome").value;
-	console.log(x)
 	setCookie('nome', x, 10);
-	console.log(x)
-	console.log(document.cookie);
 }
 
 function main() {
 	var audio = document.getElementById("menu_audio");
-	var click_audio=document.getElementById("click_audio");
+	var click_audio = document.getElementById("click_audio");
 	//Volume da musica
-	audio.volume=getCookie("vol");
+	audio.volume = getCookie("vol");
 	//Volume dos botoes
-    click_audio.volume=getCookie("volsfx");
-    //Mute dos botoes
-    if (getCookie("mutesfx")=="false"){
-      click_audio.muted=false;
-    }
-    else{
-      click_audio.muted=true;
-    }
-    document.getElementById("back").addEventListener("click",play1,false);
-    document.getElementById("camp").addEventListener("click",play2,false);
-    document.getElementById("endless").addEventListener("click",play3,false);
-    //Funcao para voltar ao menu
-    function play1(){
-        click_audio.play();
-        setTimeout(function(){window.location.href='menu.html';},200);
-    }
-    //Funcao para ir para o modo campanha
-    function play2(){
-    	click_audio.play();
-        setTimeout(function(){window.location.href='campanha.html';},200);
-    }
-    //Funcao para ir para o modo endless
-    function play3(){
-    	click_audio.play();
-        setTimeout(function(){window.location.href='endlessjogo.html';},200);
-    }
-    //Mute da musica
+	click_audio.volume = getCookie("volsfx");
+	//Mute dos botoes
+	if (getCookie("mutesfx") == "false") {
+		click_audio.muted = false;
+	}
+	else {
+		click_audio.muted = true;
+	}
+	document.getElementById("back").addEventListener("click", play1, false);
+	document.getElementById("camp").addEventListener("click", play2, false);
+	document.getElementById("endless").addEventListener("click", play3, false);
+	//Funcao para voltar ao menu
+	function play1() {
+		click_audio.play();
+		setTimeout(function () { window.location.href = 'menu.html'; }, 200);
+	}
+	//Funcao para ir para o modo campanha
+	function play2() {
+		click_audio.play();
+		setTimeout(function () { window.location.href = 'campanha.html'; }, 200);
+	}
+	//Funcao para ir para o modo endless
+	function play3() {
+		click_audio.play();
+		setTimeout(function () { window.location.href = 'endlessjogo.html'; }, 200);
+	}
+	//Mute da musica
 	if (getCookie("mute") == "false") {
 		//It is, lets play!
 		audio.play();

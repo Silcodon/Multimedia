@@ -19,7 +19,7 @@
   var frameSpeed = 4;
   var ceu = { x: 0, y: 0, speed: 0 };
   var backdrop = { x: 0, y: 0, speed: 0 };
-  var SOUNDS = ['background_music', "gameover_music", "jump_music","click"];
+  var SOUNDS = ['background_music', "gameover_music", "jump_music", "click"];
   var IMAGES = ['bg', 'areia', 'backdrop', 'ceu', 'normal_walk', 'agua', 'bridge', 'box', 'grass1', 'grass2', 'cliff', 'spikes', 'slime', 'plant', 'bush1', 'bush2'];
   // platform variables
   var platformHeight, platformLength, gapLength;
@@ -298,7 +298,7 @@
     update() {
 
       // jump if not currently jumping or falling
-      if ((teclas[0] == true || teclas[1] == true) && this.dy === 0 && this.isJumping<2) {
+      if ((teclas[0] == true || teclas[1] == true) && this.dy === 0 && this.isJumping < 2) {
         imgs.jump_music.currentTime = 0
         this.isJumping++;
         this.dy = this.jumpDy;
@@ -579,8 +579,8 @@
   }
 
 
-  function updatecookies(score1, nome) {
-    nome = teste;
+  function updatecookies(score1) {
+    var nome = getCookie("nome");
     var str1 = "ranking";
     var str3 = "a";
     for (let i = 1; i <= 10; i++) {
@@ -592,7 +592,12 @@
       }
       else {
         if (getCookie(str1.concat(str2, str3)) < score1) {
-
+          var aux = getCookie(str1.concat(str2));
+          var aux2 = getCookie(str1.concat(str2, str3));
+          setCookie(str1.concat(str2), nome, 10);
+          setCookie(str1.concat(str2, str3), score1, 10);
+          nome = aux;
+          score1 = aux2;
         }
       }
     }
@@ -607,6 +612,9 @@
     removeEventListener("keydown", pressdown);
     document.getElementById('game-over').style.display = 'block';
     document.getElementById('score').innerHTML = score;
+
+
+    updatecookies(score);
     imgs.background_music.pause();
     imgs.gameover_music.currentTime = 0;
     imgs.gameover_music.play();
@@ -785,8 +793,8 @@
     document.getElementById('game-over').style.display = 'none';
     document.getElementById('pause').style.display = 'none';
     imgs = images;
-    imgs.background_music.volume=getCookie("vol");
-    imgs.gameover_music.volume=getCookie("vol");
+    imgs.background_music.volume = getCookie("vol");
+    imgs.gameover_music.volume = getCookie("vol");
     if (getCookie("mute") == "false") {
       document.getElementById("mutemusica").src = "../resources/unmute.png";
       imgs.background_music.muted = false;
@@ -798,18 +806,18 @@
       imgs.gameover_music.muted = true;
     }
 
-    if (getCookie("mutesfx")=="false"){
+    if (getCookie("mutesfx") == "false") {
       document.getElementById("mutesfx").src = "../resources/unmute.png";
-      imgs.jump_music.muted=false;
-      imgs.click.muted=false;
+      imgs.jump_music.muted = false;
+      imgs.click.muted = false;
     }
-    else{
+    else {
       document.getElementById("mutesfx").src = "../resources/mute.png";
-      imgs.jump_music.muted=true;
-      imgs.click.muted=true;
+      imgs.jump_music.muted = true;
+      imgs.click.muted = true;
     }
-    imgs.jump_music.volume=getCookie("volsfx");
-    imgs.click.volume=getCookie("volsfx");
+    imgs.jump_music.volume = getCookie("volsfx");
+    imgs.click.volume = getCookie("volsfx");
     ground = [];
     water = [];
     environment = [];
@@ -842,16 +850,16 @@
   }
   //On play/mute sfx button/link click.
   document.getElementById('mutemusica').addEventListener('click', function () {
-    if (getCookie("mute")=="false") {
+    if (getCookie("mute") == "false") {
       document.getElementById("mutemusica").src = "../resources/mute.png";
       imgs.background_music.muted = true;
       imgs.gameover_music.muted = true;
     }
     else {
-      if(getCookie('vol')<=0.1){
-        setCookie('vol',0.1,1);
-        imgs.background_music.volume=0.1;
-        imgs.gameover_music.volume=0.1;
+      if (getCookie('vol') <= 0.1) {
+        setCookie('vol', 0.1, 1);
+        imgs.background_music.volume = 0.1;
+        imgs.gameover_music.volume = 0.1;
       }
       document.getElementById("mutemusica").src = "../resources/unmute.png";
       imgs.background_music.muted = false;
@@ -865,19 +873,19 @@
     e = e || window.event;
     console.log(getCookie("mutesfx"));
     if (getCookie("mutesfx") == "false") {
-      imgs.click.muted=true
-      imgs.jump_music.muted=true;
+      imgs.click.muted = true
+      imgs.jump_music.muted = true;
       document.getElementById("mutesfx").src = "../resources/mute.png";
     } else {
-      if(getCookie('volsfx')<=0.1){
-        setCookie('volsfx',0.1,1);
-        imgs.click.volume=0.1;
-        imgs.jump_music.volume=0.1;
+      if (getCookie('volsfx') <= 0.1) {
+        setCookie('volsfx', 0.1, 1);
+        imgs.click.volume = 0.1;
+        imgs.jump_music.volume = 0.1;
       }
       //If mute cookie is set to true, unmute audio.
       document.getElementById("mutesfx").src = "../resources/unmute.png";
       imgs.click.muted = false;
-      imgs.jump_music.muted=false;
+      imgs.jump_music.muted = false;
     }
     //Set/update mute cookie with new audio muted value.
     setCookie('mutesfx', imgs.click.muted, 1);
@@ -894,75 +902,75 @@
   document.getElementById('restart').addEventListener('click', function () {
     imgs.click.play();
     addEventListener("keydown", pressdown);
-    setTimeout(function(){startGame(imgs);},200);
+    setTimeout(function () { startGame(imgs); }, 200);
   });
   //Sair para o menu
   document.getElementById('endless').addEventListener('click', function () {
     imgs.click.play();
-    setTimeout(function(){window.location.href='jogar.html';},200);
+    setTimeout(function () { window.location.href = 'jogar.html'; }, 200);
   });
   //Sair para o menu
   document.getElementById('endless2').addEventListener('click', function () {
     imgs.click.play();
-    setTimeout(function(){window.location.href='jogar.html';},200);
+    setTimeout(function () { window.location.href = 'jogar.html'; }, 200);
   });
   //Botao Mais Volume
-  document.getElementById("musicamaisVol").addEventListener("click",function(){
-      imgs.background_music.volume+=0.1;
-      imgs.gameover_music.volume+=0.1;
-      setCookie("vol",imgs.background_music.volume,1);
-      console.log(getCookie("vol"));
-      if(getCookie("vol")>=0.1){
-        imgs.background_music.muted=false;
-        imgs.gameover_music.muted=false;
-        setCookie("mute",false,1);
-        document.getElementById("mutemusica").src = "../resources/unmute.png";
-      }
+  document.getElementById("musicamaisVol").addEventListener("click", function () {
+    imgs.background_music.volume += 0.1;
+    imgs.gameover_music.volume += 0.1;
+    setCookie("vol", imgs.background_music.volume, 1);
+    console.log(getCookie("vol"));
+    if (getCookie("vol") >= 0.1) {
+      imgs.background_music.muted = false;
+      imgs.gameover_music.muted = false;
+      setCookie("mute", false, 1);
+      document.getElementById("mutemusica").src = "../resources/unmute.png";
+    }
   });
   //Botao Menos Volume
-  document.getElementById("musicamenosVol").addEventListener("click",function(){
-      imgs.background_music.volume-=0.1;
-      imgs.gameover_music.volume-=0.1;
-      setCookie("vol",imgs.background_music.volume,1);
-      console.log(getCookie("vol"));
-      if (getCookie("vol")<=0.1){
-        setCookie("mute",true,1);
-        document.getElementById("mutemusica").src = "../resources/mute.png";
-      }
+  document.getElementById("musicamenosVol").addEventListener("click", function () {
+    imgs.background_music.volume -= 0.1;
+    imgs.gameover_music.volume -= 0.1;
+    setCookie("vol", imgs.background_music.volume, 1);
+    console.log(getCookie("vol"));
+    if (getCookie("vol") <= 0.1) {
+      setCookie("mute", true, 1);
+      document.getElementById("mutemusica").src = "../resources/mute.png";
+    }
   });
   //Botao Mais Volume SFX
-  document.getElementById("sfxmaisVol").addEventListener("click",function(){
+  document.getElementById("sfxmaisVol").addEventListener("click", function () {
     //Check if audio has been started before.
-        if (imgs.click.volume>=0.9) {
-          //It has not, lets play it!
-          imgs.click.muted=false;
-          imgs.jump_music.muted=false;
-          setCookie("mutesfx",false,1);
-          document.getElementById("mutesfx").src = "../resources/unmute.png";
-        }
-      imgs.click.volume+=0.1;
-      imgs.jump_music.volume+=0.1;
-      setCookie("volsfx",imgs.click.volume,1);
-      console.log(getCookie("volsfx"));
-      if(getCookie("volsfx")>=0.1){
-        imgs.click.muted=false;
-        imgs.jump_music.muted=false;
-        setCookie("mutesfx",false,1);
-        document.getElementById("mutesfx").src = "../resources/unmute.png";
-      }
+    if (imgs.click.volume >= 0.9) {
+      //It has not, lets play it!
+      imgs.click.muted = false;
+      imgs.jump_music.muted = false;
+      setCookie("mutesfx", false, 1);
+      document.getElementById("mutesfx").src = "../resources/unmute.png";
+    }
+    imgs.click.volume += 0.1;
+    imgs.jump_music.volume += 0.1;
+    setCookie("volsfx", imgs.click.volume, 1);
+    console.log(getCookie("volsfx"));
+    if (getCookie("volsfx") >= 0.1) {
+      imgs.click.muted = false;
+      imgs.jump_music.muted = false;
+      setCookie("mutesfx", false, 1);
+      document.getElementById("mutesfx").src = "../resources/unmute.png";
+    }
   });
   //Botao Menos Volume SFX
-  document.getElementById("sfxmenosVol").addEventListener("click",function(){
-      imgs.click.volume-=0.1;
-      imgs.jump_music.volume-=0.1;
-      setCookie("volsfx",imgs.click.volume,1);
-      console.log(getCookie("volsfx"));
-      if (getCookie("volsfx")<=0.1){
-        setCookie("mutesfx",true,1);
-        document.getElementById("mutesfx").src = "../resources/mute.png";
-      }
+  document.getElementById("sfxmenosVol").addEventListener("click", function () {
+    imgs.click.volume -= 0.1;
+    imgs.jump_music.volume -= 0.1;
+    setCookie("volsfx", imgs.click.volume, 1);
+    console.log(getCookie("volsfx"));
+    if (getCookie("volsfx") <= 0.1) {
+      setCookie("mutesfx", true, 1);
+      document.getElementById("mutesfx").src = "../resources/mute.png";
+    }
   });
-  window.addEventListener("load",function(){loadAssets(IMAGES, SOUNDS, startGame);});
+  window.addEventListener("load", function () { loadAssets(IMAGES, SOUNDS, startGame); });
 
 
 })();
