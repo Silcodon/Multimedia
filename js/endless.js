@@ -583,6 +583,7 @@
     var nome = getCookie("nome");
     var str1 = "ranking";
     var str3 = "a";
+    var mudou = false;
     for (let i = 1; i <= 10; i++) {
       var str2 = i;
       if (document.cookie.indexOf(str1.concat(str2)) == -1) {
@@ -591,13 +592,14 @@
         break;
       }
       else {
-        if (getCookie(str1.concat(str2, str3)) < score1) {
+        if (getCookie(str1.concat(str2, str3)) < score1 || mudou == true) {
           var aux = getCookie(str1.concat(str2));
           var aux2 = getCookie(str1.concat(str2, str3));
           setCookie(str1.concat(str2), nome, 10);
           setCookie(str1.concat(str2, str3), score1, 10);
           nome = aux;
           score1 = aux2;
+          mudou = true;
         }
       }
     }
