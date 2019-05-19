@@ -43,31 +43,31 @@ button:hover{
 #play{
 	position: absolute;
 	top: 32%;
-	right: 70%;
+	right: 65%;
 }
 
 #rank{
 	position: absolute;
-	top: 40%;
-	right: 69%;
+	top: 41%;
+	right: 66%;
 }
 
 #skin{
 	position: absolute;
-	top: 48%;
-	right: 70%;
+	top: 49%;
+	right: 65%;
 }
 
 #help{
 	position: absolute;
-	top: 56%;
-	right: 69%;
+	top: 57%;
+	right: 66%;
 }
 
 #creditos{
 	position: absolute;
-	top: 64%;
-	right: 70%;
+	top: 65%;
+	right: 65%;
 }
 
 #options{
@@ -76,8 +76,8 @@ button:hover{
 	width: 80px;
 	height: 80px;
 	position: absolute;
-	top:60%;
-	left:60%;
+	top:61%;
+	left:66%;
 	cursor: pointer;
 
 }

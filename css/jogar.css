@@ -38,8 +38,8 @@ input[type = submit]{
 	border-color: #F49447;
 	background-color: #1B1F1C;
 	position: absolute;
-	top: 25%;
-	left:40%;
+	top: 26%;
+	left:45%;
 }
 
 input[type = text]{
@@ -53,8 +53,8 @@ input[type = text]{
 	border-color: #F49447;
 	background-color: #1B1F1C;
 	position: absolute;
-	top: 25%;
-	left:30%;
+	top: 26%;
+	left:35%;
 }
 ::placeholder{
 	color: #F49447;
@@ -109,7 +109,7 @@ button:hover{
 
 #endless{
 	position: absolute;
-	left: 30%;
+	left: 35%;
 	top:35%;
 }
 

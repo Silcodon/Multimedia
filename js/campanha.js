@@ -1,6 +1,449 @@
+class prelevel extends Phaser.Scene{
+   constructor(){
+        super("prelevel");
+    }
 
-//FALTA
-//2 - MENU PAUSA
+    preload(){
+      
+      this.load.plugin('DialogModalPlugin', '../js/dialog_plugin.js');
+      this.load.image("tiles", "../resources/1234.png");
+      this.load.tilemapTiledJSON("map1", "../resources/prelevel.json");
+      this.load.image("background", "../resources/bg.png");
+      this.load.spritesheet('player', "../resources/walk.png",{frameWidth: 60, frameHeight: 58});
+      this.load.audio('music', '../resources/background_music.mp3');
+      this.load.image('next', '../resources/button.png');
+      this.load.spritesheet('fox', '../resources/fox_walk.png', {frameWidth: 121, frameHeight: 45});
+      this.load.spritesheet('santa', '../resources/normal_walk_3.png', {frameWidth: 60, frameHeight: 58});
+      this.load.image('pause', '../resources/pause.png');
+    }
+
+    create(){
+         
+      music = this.sound.add('music');
+      music.loop = true;
+      music.play();
+      mappre = this.make.tilemap({key: "map1"}); 
+      const tileset = mappre.addTilesetImage("1234", "tiles");
+      var background = this.add.tileSprite(460, 160, 4000, 1080, "background");
+      
+     var button = this.add.tileSprite(1350, 430,32,32, 'next').setInteractive().on('pointerdown', () => {
+      this.scene.start("levelzero");
+
+     });
+     
+
+
+     /*PAUSA*/
+     var pausa = this.add.tileSprite(50, 50,64,64, 'pause').setInteractive().on('pointerdown', () => {
+    
+      this.scene.pause('prelevel');
+      this.scene.launch('pausepre');
+
+     
+      
+
+     });
+
+     
+     /*-------*/
+      cursors = this.input.keyboard.createCursorKeys();
+
+        const anims = this.anims;
+        this.anims.create({
+        key: "fox_walk",
+        frames: this.anims.generateFrameNames('fox', {start:0, end:39}),
+        frameRate:15,
+        repeat: -1
+       });
+
+          this.anims.create({
+        key: "walk",
+        frames: this.anims.generateFrameNames('player', {start: 0, end: 10}),
+        frameRate: 10,
+        repeat: -1
+         });
+
+       this.anims.create({
+        key: "idle",
+        frames: [{key: 'player', frame: 5}],
+        frameRate: 20,
+         });
+       this.anims.create({
+        key: "walkjimmy",
+        frames: this.anims.generateFrameNames('santa', {start: 0, end: 10}),
+        frameRate: 10,
+        repeat: -1
+         });
+       this.anims.create({
+        key: "idlejimmy",
+        frames: [{key: 'santa', frame: 5}],
+        frameRate: 10,
+         });
+
+
+
+      
+        
+      gLayer = mappre.createStaticLayer("GroundLayer", tileset, 0,0);
+      bgLayer = mappre.createStaticLayer("BackgroundLayer", tileset, 0,0);
+      gLayer.setCollisionByExclusion([-1]);
+       bgLayer.setCollisionByExclusion([-1]);
+      
+
+      
+
+      
+      /*Dialogo plugin*/
+      this.sys.install('DialogModalPlugin');
+      this.sys.dialogModal.init();
+      this.sys.dialogModal.setText('Tudo começou quando o Kangoo voltava do seu treino de boxe...', true);
+       timedEvent = this.time.delayedCall(1000, function(){
+        player = this.physics.add.sprite(300, 100,'player');
+         player.setBounce(0.2);
+      player.setCollideWorldBounds(true);
+      this.physics.add.collider(player, gLayer);
+      }, [], this);
+
+      timedEvent = this.time.delayedCall(6000, function(){
+        this.sys.dialogModal.setText('Estava ansioso por testar a sua nova técnica de boxe no seu filho!', true);
+      }, [], this);
+
+      timedEvent = this.time.delayedCall(11000, function(){
+        this.sys.dialogModal.setText('Contudo... Por mais que procurasse não o encontrava.', true);
+      }, [], this);
+      timedEvent = this.time.delayedCall(15500, function(){
+        this.sys.dialogModal.setText('O pequeno Jimmy estava desaparecido.\nKangoo: "Mas onde andará aquele puto estúpido?!"\nQuestionou-se o pai.', true);
+      }, [], this);
+      timedEvent = this.time.delayedCall(24000, function(){
+        this.sys.dialogModal.setText('Foi nessa altura que ele avistou ao longe o que parecia ser uma raposa.', true);
+      }, [], this);
+      timedEvent = this.time.delayedCall(27000, function(){
+        enemy = this.physics.add.sprite(1000, 100,'fox');
+
+         enemy.setBounce(0.2);
+      enemy.setCollideWorldBounds(true);
+      this.physics.add.collider(enemy, gLayer);
+      }, [], this);
+      timedEvent = this.time.delayedCall(30000, function(){
+        this.sys.dialogModal.setText('Raposa: "Ora ora meu caro Kangoo, andas à procura de alguma coisa?"', true);
+      }, [], this);
+
+      timedEvent = this.time.delayedCall(35000, function(){
+        this.sys.dialogModal.setText("Kangoo: Tu?! Espera... Quem és tu mesmo?", true);
+
+      }, [], this);
+
+        timedEvent = this.time.delayedCall(40000, function(){
+        this.sys.dialogModal.setText('Pixy: "Boa piada Kangoo, não finjas que não me conheces, sabes perfeitamente quem eu sou.\n Sou a maléfica raposa Pixy!"', true);
+      }, [], this);
+
+        timedEvent = this.time.delayedCall(49000, function(){
+        this.sys.dialogModal.setText('Kangoo: "O que é queres de mim?"', true);
+      }, [], this);
+        timedEvent = this.time.delayedCall(53000, function(){
+        this.sys.dialogModal.setText('Pixy: "Ahah, nada! Apenas pensei que quisesses dizer adeus ao teu pequeno Jimmy"', true);
+      }, [], this);
+
+        timedEvent = this.time.delayedCall(60000, function(){
+        jimmy = this.physics.add.sprite(1200, 100,'santa');
+        jimmy.flipX = true;
+        jimmy.setBounce(0.2);
+        jimmy.setCollideWorldBounds(true);
+        this.physics.add.collider(jimmy, gLayer);
+        this.sys.dialogModal.setText('Jimmy: "PAAAAAAAAAAAAAAAI. AJUUUUDAAA-MEEEEE"', true);
+      }, [], this);
+
+         timedEvent = this.time.delayedCall(66000, function(){
+        this.sys.dialogModal.setText('Kangoo: "Ai de ti que toques no meu filho. Preciso de alguém para me lavar a loiça!\nOu queres ser tu a fazê-lo?!"', true);
+      }, [], this);
+          timedEvent = this.time.delayedCall(75000, function(){
+        this.sys.dialogModal.setText('Pixy: "Estás demasiado engraçado para quem tem o seu filho prestes a ser raptado."', true);
+      }, [], this);
+           timedEvent = this.time.delayedCall(81000, function(){
+        this.sys.dialogModal.setText('Kangoo: "Porque sei que o vou salvar!"', true);
+      }, [], this);
+           timedEvent = this.time.delayedCall(85000, function(){
+        this.sys.dialogModal.setText('Pixy: "AHAHAHAHA! ISSO É O QUE VAMOS VER!"', true);
+      }, [], this);
+           timedEvent = this.time.delayedCall(90000, function(){
+        this.sys.dialogModal.setText('Pixy: "Vá Jimmy despede-te do teu pai, receio que não o voltes a ver nunca mais!\nMUAHAHAHAHAHAH"', true);
+      }, [], this);
+            timedEvent = this.time.delayedCall(97000, function(){
+        this.sys.dialogModal.setText('Kangoo: "Não te preocupes filho! Estou a ir buscar-te!"', true);
+      }, [], this);
+              timedEvent = this.time.delayedCall(102000, function(){
+        this.sys.dialogModal.setText('Pixy: "Boa sorte Kangoo, vais precisar se quiseres ver o teu filho novamente."', true);
+      }, [], this);
+               timedEvent = this.time.delayedCall(100000, function(){
+        enemy.flipX = true;
+        enemy.anims.play('fox_walk', true);
+        enemy.setVelocityX(70);
+      }, [], this);
+                timedEvent = this.time.delayedCall(101000, function(){
+                   jimmy.flipX = false;
+        jimmy.anims.play('walkjimmy', true);
+        jimmy.setVelocityX(45);
+      }, [], this);
+                timedEvent = this.time.delayedCall(105500, function(){
+                  enemy.destroy();
+      }, [], this);
+                timedEvent = this.time.delayedCall(105500, function(){
+                  jimmy.destroy();
+      }, [], this);
+
+                timedEvent = this.time.delayedCall(108000, function(){
+                  this.scene.start('levelzero');
+                  
+      }, [], this);
+              }
+    update(){
+
+    }
+}
+
+
+class PausePre extends Phaser.Scene{
+  constructor(){
+    super('pausepre');
+  }
+  preload(){
+    this.load.image("rect", "../resources/retangulo.png");
+      this.load.image("play", "../resources/play.png");
+      this.load.image("menu2", "../resources/main_menu2.png");
+       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.image("mute", "../resources/mute2.png");
+        this.load.image("soundon", "../resources/sound.png");
+  }
+  create(){
+       var add = this.add;
+    var input = this.input;
+    rect = this.add.tileSprite(700, 250, 400, 206, "rect");
+    play = this.add.tileSprite(800, 300, 64,64, 'play').setInteractive().on('pointerdown', () => {
+      this.scene.stop('pausepre');
+      this.scene.resume('prelevel');});
+    home = this.add.tileSprite(600, 300, 64, 64, "menu2").setInteractive().on('pointerdown', () =>{
+      window.location.href = "menu.html";
+
+    });
+    mute = this.add.tileSprite(700, 250, 32,32, 'mute').setInteractive().on('pointerdown', () =>{
+      music.stop();
+    });
+
+    soundOn = this.add.tileSprite(700, 300, 32,32, 'soundon').setInteractive().on('pointerdown', () =>{
+      music.play();
+    });
+
+
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
+        },
+        active: function ()
+        {
+            add.text(613, 160, 'PAUSA', { fontFamily: 'Splatch', fontSize: 40, color: '#000000' });
+            add.text(768, 240, 'PLAY', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+
+             add.text(560, 240, 'MENU', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+        }
+    });
+  }
+}
+
+class level0 extends Phaser.Scene{
+  constructor(){
+        super("levelzero");
+    }
+
+    preload() {
+     
+  
+      this.load.image("tiles", "../resources/1234.png");
+      this.load.tilemapTiledJSON("map0", "../resources/level0.json");
+      this.load.image("background", "../resources/bg.png");
+      this.load.spritesheet('player', "../resources/walk.png",{frameWidth: 60, frameHeight: 58});
+      this.load.audio('jump', "../resources/jump_music.mp3");
+      this.load.spritesheet('apple', '../resources/apple.png',{frameWidth: 23, frameHeight: 26});
+      this.load.audio('death', "../resources/death.mp3");
+      this.load.audio('music', "../resources/background_music.mp3");
+      this.load.image('pause', '../resources/pause.png');
+    }
+
+
+
+
+    create() {
+         
+      
+      map0 = this.make.tilemap({key: "map0"}); 
+      const tileset = map0.addTilesetImage("1234", "tiles");
+      
+
+        var background = this.add.tileSprite(460, 160, 4000, 1080, "background");
+
+     gLayer = map0.createStaticLayer("GroundLayer", tileset, 0,0);
+       bgLayer = map0.createStaticLayer("BackgroundLayer", tileset, 0,0);
+       deathLayer = map0.createStaticLayer("DeathLayer", tileset,0,0);
+      
+    
+         gLayer.setCollisionByExclusion([-1]); //Player colide com este layer
+       deathLayer.setCollisionByExclusion([-1]);
+      
+
+     
+      var pausa = this.add.tileSprite(50, 50,64,64, 'pause').setInteractive().on('pointerdown', () => {
+    
+      this.scene.pause('levelzero');
+      this.scene.launch('pause0');
+
+     
+      
+
+     });
+      
+     
+      jump_sound = this.sound.add('jump');// Som do salto
+      death_sound = this.sound.add('death'); //Som da morte
+      // //Player
+      player = this.physics.add.sprite(100, 0,'player');
+      apple = this.physics.add.sprite(1420,200, 'apple');
+
+     
+
+      player.setBounce(0.2);
+      player.setCollideWorldBounds(true); 
+
+      apple.setBounce(0.2);
+      apple.setCollideWorldBounds(true);
+      this.physics.add.overlap(player, apple, function winLevel(){
+        this.scene.start('levelone');
+      }, null, this);
+
+
+
+     
+      this.physics.add.collider(player, deathLayer, function deathHandler(){
+         death_sound.play();
+         player.destroy();
+         player = this.physics.add.sprite(100, 0,'player');
+         this.physics.add.collider(player, gLayer);
+          this.physics.add.overlap(player, apple, function winLevel(){
+        this.scene.start('levelone');
+      }, null, this);
+         this.physics.add.collider(player, deathLayer, deathHandler, null, this);
+        }
+        , null, this);
+
+
+       this.physics.add.collider(player, gLayer);
+      this.physics.add.collider(apple, gLayer);
+
+     
+     
+     
+
+        
+      //Animação do player
+      const anims = this.anims;
+      this.anims.create({
+        key: "walk",
+        frames: this.anims.generateFrameNames('player', {start: 0, end: 10}),
+        frameRate: 10,
+        repeat: -1
+         });
+       this.anims.create({
+        key: "idle",
+        frames: [{key: 'player', frame: 5}],
+        frameRate: 20,
+         });
+
+      //Inputs 
+      cursors = this.input.keyboard.createCursorKeys();
+      
+      //Camera a seguir o player e a nao sair do mapa
+      this.cameras.main.setBounds(0, 0, map0.widthInPixels, map0.heightInPixels); //Camara nao sair das bordas
+      this.cameras.main.startFollow(player); //Seguir o player
+
+    }
+
+    update(time, delta) {
+
+  
+
+      //Horizontal movement
+      if (cursors.left.isDown) {
+        player.body.setVelocityX(-150);
+        player.anims.play("walk", true);
+        player.flipX = true;
+      } else if (cursors.right.isDown) {
+        player.body.setVelocityX(150);
+        player.anims.play('walk', true);
+        player.flipX = false; // use the original sprite looking to the right
+      } else {
+            player.body.setVelocityX(0);
+            player.anims.play('idle', true);
+        }
+      if (cursors.up.isDown && player.body.onFloor())
+        {
+            player.body.setVelocityY(-300);
+            jump_sound.play();
+
+        }
+        
+      
+
+        
+    }
+
+
+}
+
+class Pause0 extends Phaser.Scene{
+  constructor(){
+    super('pause0');
+  }
+  preload(){
+    this.load.image("rect", "../resources/retangulo.png");
+      this.load.image("play", "../resources/play.png");
+      this.load.image("menu2", "../resources/main_menu2.png");
+       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.image("mute", "../resources/mute2.png");
+        this.load.image("soundon", "../resources/sound.png");
+  }
+  create(){
+       var add = this.add;
+    var input = this.input;
+    rect0 = this.add.tileSprite(700, 250, 400, 206, "rect");
+    play0 = this.add.tileSprite(800, 300, 64,64, 'play').setInteractive().on('pointerdown', () => {
+      this.scene.stop('pause0');
+      this.scene.resume('levelzero');});
+    home0 = this.add.tileSprite(600, 300, 64, 64, "menu2").setInteractive().on('pointerdown', () =>{
+      window.location.href = "menu.html";
+
+    });
+    mute0 = this.add.tileSprite(700, 250, 32,32, 'mute').setInteractive().on('pointerdown', () =>{
+      music.stop();
+    });
+
+    soundOn0 = this.add.tileSprite(700, 300, 32,32, 'soundon').setInteractive().on('pointerdown', () =>{
+      music.play();
+    });
+
+
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
+        },
+        active: function ()
+        {
+            add.text(613, 160, 'PAUSA', { fontFamily: 'Splatch', fontSize: 40, color: '#000000' });
+            add.text(768, 240, 'PLAY', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+
+             add.text(560, 240, 'MENU', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+        }
+    });
+  }
+}
+
 
 class level1 extends Phaser.Scene{
     
@@ -9,10 +452,8 @@ class level1 extends Phaser.Scene{
     }
 
     preload() {
-        document.getElementById('game-over').style.display = 'none';
-        document.getElementById('pause').style.display = 'none';
+        
          this.load.image("tiles", "../resources/1234.png");
-         this.load.audio('music', "../resources/background_music2.mp3");
       this.load.tilemapTiledJSON("map", "../resources/mapa1.json");
       this.load.image("background", "../resources/bg.png");
       this.load.spritesheet('player', "../resources/walk.png",{frameWidth: 60, frameHeight: 58});
@@ -20,7 +461,8 @@ class level1 extends Phaser.Scene{
       this.load.spritesheet('apple', '../resources/apple.png',{frameWidth: 23, frameHeight: 26});
       this.load.audio('death', "../resources/death.mp3");
       this.load.spritesheet('slime', '../resources/enemy.png',{frameWidth: 32, frameHeight: 20});
-
+      this.load.audio('music', "../resources/background_music.mp3");
+      this.load.image('pause', '../resources/pause.png');
     
     }
 
@@ -46,6 +488,17 @@ class level1 extends Phaser.Scene{
        deathLayer.setCollisionByExclusion([-1]);
       
 
+
+       var pausa = this.add.tileSprite(50, 50,64,64, 'pause').setInteractive().on('pointerdown', () => {
+    
+      this.scene.pause('levelone');
+      this.scene.launch('pause1');
+
+     
+      
+
+     });
+      
      
       //Fisica do jogo
       
@@ -206,8 +659,55 @@ class level1 extends Phaser.Scene{
           
         }
       }
-
 }
+
+class Pause1 extends Phaser.Scene{
+  constructor(){
+    super('pause1');
+  }
+  preload(){
+    this.load.image("rect", "../resources/retangulo.png");
+      this.load.image("play", "../resources/play.png");
+      this.load.image("menu2", "../resources/main_menu2.png");
+       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.image("mute", "../resources/mute2.png");
+        this.load.image("soundon", "../resources/sound.png");
+  }
+  create(){
+       var add = this.add;
+    var input = this.input;
+    rect1 = this.add.tileSprite(700, 250, 400, 206, "rect");
+    play1 = this.add.tileSprite(800, 300, 64,64, 'play').setInteractive().on('pointerdown', () => {
+      this.scene.stop('pause1');
+      this.scene.resume('levelone');});
+    home1 = this.add.tileSprite(600, 300, 64, 64, "menu2").setInteractive().on('pointerdown', () =>{
+      window.location.href = "menu.html";
+
+    });
+    mute1 = this.add.tileSprite(700, 250, 32,32, 'mute').setInteractive().on('pointerdown', () =>{
+      music.stop();
+    });
+
+    soundOn1 = this.add.tileSprite(700, 300, 32,32, 'soundon').setInteractive().on('pointerdown', () =>{
+      music.play();
+    });
+
+
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
+        },
+        active: function ()
+        {
+            add.text(613, 160, 'PAUSA', { fontFamily: 'Splatch', fontSize: 40, color: '#000000' });
+            add.text(768, 240, 'PLAY', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+
+             add.text(560, 240, 'MENU', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+        }
+    });
+  }
+}
+
 
 class level2 extends Phaser.Scene{
     
@@ -217,8 +717,8 @@ class level2 extends Phaser.Scene{
 
     preload() {
 
-       document.getElementById('game-over').style.display = 'none';
-    document.getElementById('pause').style.display = 'none';
+     
+  
       this.load.image("tiles", "../resources/1234.png");
       this.load.tilemapTiledJSON("map2", "../resources/mapa2.json");
       this.load.image("background", "../resources/bg.png");
@@ -227,6 +727,7 @@ class level2 extends Phaser.Scene{
       this.load.spritesheet('apple', '../resources/apple.png',{frameWidth: 23, frameHeight: 26});
       this.load.audio('death', "../resources/death.mp3");
       this.load.spritesheet('slime', '../resources/enemy.png',{frameWidth: 32, frameHeight: 20});
+      this.load.image('pause', '../resources/pause.png');
     }
 
     create() {
@@ -247,8 +748,17 @@ class level2 extends Phaser.Scene{
       deathLayer.setCollisionByExclusion([-1]);
       
 
-      //Inicio e fim de jogo
      
+     var pausa = this.add.tileSprite(50, 50,64,64, 'pause').setInteractive().on('pointerdown', () => {
+    
+      this.scene.pause('leveltwo');
+      this.scene.launch('pause2');
+
+     
+      
+
+     });
+      
       //Fisica do jogo
       
     death_sound = this.sound.add('death'); //Som da morte
@@ -405,14 +915,62 @@ class level2 extends Phaser.Scene{
 
 }
 
+class Pause2 extends Phaser.Scene{
+  constructor(){
+    super('pause2');
+  }
+  preload(){
+    this.load.image("rect", "../resources/retangulo.png");
+      this.load.image("play", "../resources/play.png");
+      this.load.image("menu2", "../resources/main_menu2.png");
+       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.image("mute", "../resources/mute2.png");
+        this.load.image("soundon", "../resources/sound.png");
+  }
+  create(){
+       var add = this.add;
+    var input = this.input;
+    rect2 = this.add.tileSprite(700, 250, 400, 206, "rect");
+    play2 = this.add.tileSprite(800, 300, 64,64, 'play').setInteractive().on('pointerdown', () => {
+      this.scene.stop('pause2');
+      this.scene.resume('leveltwo');});
+    home2 = this.add.tileSprite(600, 300, 64, 64, "menu2").setInteractive().on('pointerdown', () =>{
+      window.location.href = "menu.html";
+
+    });
+    mute2 = this.add.tileSprite(700, 250, 32,32, 'mute').setInteractive().on('pointerdown', () =>{
+      music.stop();
+    });
+
+    soundOn2 = this.add.tileSprite(700, 300, 32,32, 'soundon').setInteractive().on('pointerdown', () =>{
+      music.play();
+    });
+
+
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
+        },
+        active: function ()
+        {
+            add.text(613, 160, 'PAUSA', { fontFamily: 'Splatch', fontSize: 40, color: '#000000' });
+            add.text(768, 240, 'PLAY', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+
+             add.text(560, 240, 'MENU', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+        }
+    });
+  }
+}
+
+
 class level3 extends Phaser.Scene{
     constructor(){
         super("levelthree");
     }
 
     preload() {
-       document.getElementById('game-over').style.display = 'none';
-    document.getElementById('pause').style.display = 'none';
+     
+
       this.load.image("tiles", "../resources/1234.png");
       this.load.tilemapTiledJSON("map3", "../resources/mapa3.json");
       this.load.image("background", "../resources/bg.png");
@@ -422,6 +980,8 @@ class level3 extends Phaser.Scene{
       this.load.audio('death', "../resources/death.mp3");
       this.load.spritesheet('slime', '../resources/enemy.png',{frameWidth: 32, frameHeight: 20});
       this.load.spritesheet('fox', '../resources/fox_walk.png', {frameWidth: 121, frameHeight: 45})
+      this.load.image('pause', '../resources/pause.png');
+      this.load.spritesheet('santa', "../resources/normal_walk_3.png",{frameWidth: 60, frameHeight: 58});
     }
 
     create() {
@@ -443,8 +1003,17 @@ class level3 extends Phaser.Scene{
       deathLayer.setCollisionByExclusion([-1]);
       
 
-      //Inicio e fim de jogo
      
+     var pausa = this.add.tileSprite(50, 50,64,64, 'pause').setInteractive().on('pointerdown', () => {
+    
+      this.scene.pause('levelthree');
+      this.scene.launch('pause3');
+
+     
+      
+
+     });
+      
       //Fisica do jogo
       
     death_sound = this.sound.add('death'); //Som da morte
@@ -460,7 +1029,7 @@ class level3 extends Phaser.Scene{
       enemy = this.physics.add.sprite(725,200, 'slime');
       boss = this.physics.add.sprite(800, 400, 'fox');
 
-      jimmy = this.physics.add.sprite(1000, 500, 'player');
+      jimmy = this.physics.add.sprite(1000, 500, 'santa');
 
 
       player.setBounce(0.2);
@@ -823,346 +1392,55 @@ class level3 extends Phaser.Scene{
         }
       }
 
-
-}
-class prelevel extends Phaser.Scene{
-   constructor(){
-        super("prelevel");
-    }
-
-    preload(){
-      document.getElementById('game-over').style.display = 'none';
-    document.getElementById('pause').style.display = 'none';
-      this.load.plugin('DialogModalPlugin', '../js/dialog_plugin.js');
-      this.load.image("tiles", "../resources/1234.png");
-      this.load.tilemapTiledJSON("map1", "../resources/prelevel.json");
-      this.load.image("background", "../resources/bg.png");
-      this.load.spritesheet('player', "../resources/walk.png",{frameWidth: 60, frameHeight: 58});
-      this.load.audio('music', '../resources/background_music.mp3');
-      this.load.image('next', '../resources/button.png');
-      this.load.spritesheet('fox', '../resources/fox_walk.png', {frameWidth: 121, frameHeight: 45});
-    
-
-    }
-
-    create(){
-         
-      music = this.sound.add('music');
-      music.loop = true;
-      music.play();
-      mappre = this.make.tilemap({key: "map1"}); 
-      const tileset = mappre.addTilesetImage("1234", "tiles");
-      var background = this.add.tileSprite(460, 160, 4000, 1080, "background");
-      
-     var button = this.add.tileSprite(1350, 430,32,32, 'next').setInteractive().on('pointerdown', () => {
-      this.scene.start("levelzero");
-
-     });
-      cursors = this.input.keyboard.createCursorKeys();
-
-        const anims = this.anims;
-        this.anims.create({
-        key: "fox_walk",
-        frames: this.anims.generateFrameNames('fox', {start:0, end:39}),
-        frameRate:15,
-        repeat: -1
-       });
-          this.anims.create({
-        key: "walk",
-        frames: this.anims.generateFrameNames('player', {start: 0, end: 10}),
-        frameRate: 10,
-        repeat: -1
-         });
-       this.anims.create({
-        key: "idle",
-        frames: [{key: 'player', frame: 5}],
-        frameRate: 20,
-         });
-
-
-
-      
-        
-      gLayer = mappre.createStaticLayer("GroundLayer", tileset, 0,0);
-      bgLayer = mappre.createStaticLayer("BackgroundLayer", tileset, 0,0);
-      gLayer.setCollisionByExclusion([-1]);
-       bgLayer.setCollisionByExclusion([-1]);
-      
-
-      
-
-      
-      /*Dialogo plugin*/
-      this.sys.install('DialogModalPlugin');
-      this.sys.dialogModal.init();
-      this.sys.dialogModal.setText('Tudo começou quando o Kangoo voltava do seu treino de boxe...', true);
-       timedEvent = this.time.delayedCall(1000, function(){
-        player = this.physics.add.sprite(300, 100,'player');
-         player.setBounce(0.2);
-      player.setCollideWorldBounds(true);
-      this.physics.add.collider(player, gLayer);
-      }, [], this);
-
-      timedEvent = this.time.delayedCall(6000, function(){
-        this.sys.dialogModal.setText('Estava ansioso por testar a sua nova técnica de boxe no seu filho!', true);
-      }, [], this);
-
-      timedEvent = this.time.delayedCall(11000, function(){
-        this.sys.dialogModal.setText('Contudo... Por mais que procurasse não o encontrava.', true);
-      }, [], this);
-      timedEvent = this.time.delayedCall(15500, function(){
-        this.sys.dialogModal.setText('O pequeno Jimmy estava desaparecido.\nKangoo: "Mas onde andará aquele puto estúpido?!"\nQuestionou-se o pai.', true);
-      }, [], this);
-      timedEvent = this.time.delayedCall(24000, function(){
-        this.sys.dialogModal.setText('Foi nessa altura que ele avistou ao longe o que parecia ser uma raposa.', true);
-      }, [], this);
-      timedEvent = this.time.delayedCall(27000, function(){
-        enemy = this.physics.add.sprite(1000, 100,'fox');
-
-         enemy.setBounce(0.2);
-      enemy.setCollideWorldBounds(true);
-      this.physics.add.collider(enemy, gLayer);
-      }, [], this);
-      timedEvent = this.time.delayedCall(30000, function(){
-        this.sys.dialogModal.setText('Raposa: "Ora ora meu caro Kangoo, andas à procura de alguma coisa?"', true);
-      }, [], this);
-
-      timedEvent = this.time.delayedCall(35000, function(){
-        this.sys.dialogModal.setText("Kangoo: Tu?! Espera... Quem és tu mesmo?", true);
-
-      }, [], this);
-
-        timedEvent = this.time.delayedCall(40000, function(){
-        this.sys.dialogModal.setText('Pixy: "Boa piada Kangoo, não finjas que não me conheces, sabes perfeitamente quem eu sou.\n Sou a maléfica raposa Pixy!"', true);
-      }, [], this);
-
-        timedEvent = this.time.delayedCall(49000, function(){
-        this.sys.dialogModal.setText('Kangoo: "O que é queres de mim?"', true);
-      }, [], this);
-        timedEvent = this.time.delayedCall(53000, function(){
-        this.sys.dialogModal.setText('Pixy: "Ahah, nada! Apenas pensei que quisesses dizer adeus ao teu pequeno Jimmy"', true);
-      }, [], this);
-
-        timedEvent = this.time.delayedCall(60000, function(){
-        jimmy = this.physics.add.sprite(1200, 100,'player');
-        jimmy.flipX = true;
-        jimmy.setBounce(0.2);
-        jimmy.setCollideWorldBounds(true);
-        this.physics.add.collider(jimmy, gLayer);
-        this.sys.dialogModal.setText('Jimmy: "PAAAAAAAAAAAAAAAI. AJUUUUDAAA-MEEEEE"', true);
-      }, [], this);
-
-         timedEvent = this.time.delayedCall(66000, function(){
-        this.sys.dialogModal.setText('Kangoo: "Ai de ti que toques no meu filho. Preciso de alguém para me lavar a loiça!\nOu queres ser tu a fazê-lo?!"', true);
-      }, [], this);
-          timedEvent = this.time.delayedCall(75000, function(){
-        this.sys.dialogModal.setText('Pixy: "Estás demasiado engraçado para quem tem o seu filho prestes a ser raptado."', true);
-      }, [], this);
-           timedEvent = this.time.delayedCall(81000, function(){
-        this.sys.dialogModal.setText('Kangoo: "Porque sei que o vou salvar!"', true);
-      }, [], this);
-           timedEvent = this.time.delayedCall(85000, function(){
-        this.sys.dialogModal.setText('Pixy: "AHAHAHAHA! ISSO É O QUE VAMOS VER!"', true);
-      }, [], this);
-           timedEvent = this.time.delayedCall(90000, function(){
-        this.sys.dialogModal.setText('Pixy: "Vá Jimmy despede-te do teu pai, receio que não o voltes a ver nunca mais!\nMUAHAHAHAHAHAH"', true);
-      }, [], this);
-            timedEvent = this.time.delayedCall(97000, function(){
-        this.sys.dialogModal.setText('Kangoo: "Não te preocupes filho! Estou a ir buscar-te!"', true);
-      }, [], this);
-              timedEvent = this.time.delayedCall(102000, function(){
-        this.sys.dialogModal.setText('Pixy: "Boa sorte Kangoo, vais precisar se quiseres ver o teu filho novamente."', true);
-      }, [], this);
-               timedEvent = this.time.delayedCall(100000, function(){
-        enemy.flipX = true;
-        enemy.anims.play('fox_walk', true);
-        enemy.setVelocityX(70);
-      }, [], this);
-                timedEvent = this.time.delayedCall(101000, function(){
-                   jimmy.flipX = false;
-        jimmy.anims.play('walk', true);
-        jimmy.setVelocityX(45);
-      }, [], this);
-                timedEvent = this.time.delayedCall(105500, function(){
-                  enemy.destroy();
-      }, [], this);
-                timedEvent = this.time.delayedCall(105500, function(){
-                  jimmy.destroy();
-      }, [], this);
-
-                timedEvent = this.time.delayedCall(108000, function(){
-                  this.scene.start('levelzero');
-                  
-      }, [], this);
-
-
-
-
-              
-
-
-
-
-
-      
-
-
-      
-     
-       
-      
-      
-      
-      
-     
-
-
-    }
-    update(){
-
-    }
-
 }
 
-class level0 extends Phaser.Scene{
+class Pause3 extends Phaser.Scene{
   constructor(){
-        super("levelzero");
-    }
+    super('pause3');
+  }
+  preload(){
+    this.load.image("rect", "../resources/retangulo.png");
+      this.load.image("play", "../resources/play.png");
+      this.load.image("menu2", "../resources/main_menu2.png");
+       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.image("mute", "../resources/mute2.png");
+        this.load.image("soundon", "../resources/sound.png");
+  }
+  create(){
+       var add = this.add;
+    var input = this.input;
+    rect3 = this.add.tileSprite(700, 250, 400, 206, "rect");
+    play3 = this.add.tileSprite(800, 300, 64,64, 'play').setInteractive().on('pointerdown', () => {
+      this.scene.stop('pause3');
+      this.scene.resume('levelthree');});
+    home3 = this.add.tileSprite(600, 300, 64, 64, "menu2").setInteractive().on('pointerdown', () =>{
+      window.location.href = "menu.html";
 
-    preload() {
-      document.getElementById('game-over').style.display = 'none';
-    document.getElementById('pause').style.display = 'none';
-      this.load.image("tiles", "../resources/1234.png");
-      this.load.tilemapTiledJSON("map0", "../resources/level0.json");
-      this.load.image("background", "../resources/bg.png");
-      this.load.spritesheet('player', "../resources/walk.png",{frameWidth: 60, frameHeight: 58});
-      this.load.audio('jump', "../resources/jump_music.mp3");
-      this.load.spritesheet('apple', '../resources/apple.png',{frameWidth: 23, frameHeight: 26});
-      this.load.audio('death', "../resources/death.mp3");
-      this.load.audio('music', "../resources/background_music.mp3");
-    
-    }
+    });
+    mute3 = this.add.tileSprite(700, 250, 32,32, 'mute').setInteractive().on('pointerdown', () =>{
+      music.stop();
+    });
 
-
-
-
-    create() {
-         
-      
-      map0 = this.make.tilemap({key: "map0"}); 
-      const tileset = map0.addTilesetImage("1234", "tiles");
-      
-
-        var background = this.add.tileSprite(460, 160, 4000, 1080, "background");
-
-     gLayer = map0.createStaticLayer("GroundLayer", tileset, 0,0);
-       bgLayer = map0.createStaticLayer("BackgroundLayer", tileset, 0,0);
-       deathLayer = map0.createStaticLayer("DeathLayer", tileset,0,0);
-      
-    
-         gLayer.setCollisionByExclusion([-1]); //Player colide com este layer
-       deathLayer.setCollisionByExclusion([-1]);
-      
-
-     
-      //Fisica do jogo
-      
-     
-      jump_sound = this.sound.add('jump');// Som do salto
-      death_sound = this.sound.add('death'); //Som da morte
-      // //Player
-      player = this.physics.add.sprite(100, 0,'player');
-      apple = this.physics.add.sprite(1420,200, 'apple');
-
-     
-
-      player.setBounce(0.2);
-      player.setCollideWorldBounds(true); 
-
-      apple.setBounce(0.2);
-      apple.setCollideWorldBounds(true);
-      this.physics.add.overlap(player, apple, function winLevel(){
-        this.scene.start('levelone');
-      }, null, this);
+    soundOn3 = this.add.tileSprite(700, 300, 32,32, 'soundon').setInteractive().on('pointerdown', () =>{
+      music.play();
+    });
 
 
-
-     
-      this.physics.add.collider(player, deathLayer, function deathHandler(){
-         death_sound.play();
-         player.destroy();
-         player = this.physics.add.sprite(100, 0,'player');
-         this.physics.add.collider(player, gLayer);
-          this.physics.add.overlap(player, apple, function winLevel(){
-        this.scene.start('levelone');
-      }, null, this);
-         this.physics.add.collider(player, deathLayer, deathHandler, null, this);
-        }
-        , null, this);
-
-
-       this.physics.add.collider(player, gLayer);
-      this.physics.add.collider(apple, gLayer);
-
-     
-     
-     
-
-        
-      //Animação do player
-      const anims = this.anims;
-      this.anims.create({
-        key: "walk",
-        frames: this.anims.generateFrameNames('player', {start: 0, end: 10}),
-        frameRate: 10,
-        repeat: -1
-         });
-       this.anims.create({
-        key: "idle",
-        frames: [{key: 'player', frame: 5}],
-        frameRate: 20,
-         });
-
-      //Inputs 
-      cursors = this.input.keyboard.createCursorKeys();
-      
-      //Camera a seguir o player e a nao sair do mapa
-      this.cameras.main.setBounds(0, 0, map0.widthInPixels, map0.heightInPixels); //Camara nao sair das bordas
-      this.cameras.main.startFollow(player); //Seguir o player
-
-    }
-
-    update(time, delta) {
-
-  
-
-      //Horizontal movement
-      if (cursors.left.isDown) {
-        player.body.setVelocityX(-150);
-        player.anims.play("walk", true);
-        player.flipX = true;
-      } else if (cursors.right.isDown) {
-        player.body.setVelocityX(150);
-        player.anims.play('walk', true);
-        player.flipX = false; // use the original sprite looking to the right
-      } else {
-            player.body.setVelocityX(0);
-            player.anims.play('idle', true);
-        }
-      if (cursors.up.isDown && player.body.onFloor())
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
+        },
+        active: function ()
         {
-            player.body.setVelocityY(-300);
-            jump_sound.play();
+            add.text(613, 160, 'PAUSA', { fontFamily: 'Splatch', fontSize: 40, color: '#000000' });
+            add.text(768, 240, 'PLAY', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
 
+             add.text(560, 240, 'MENU', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
         }
-        
-      
-
-        
-    }
-
-
+    });
+  }
 }
+
 
 class levelfinal extends Phaser.Scene{
    constructor(){
@@ -1170,8 +1448,8 @@ class levelfinal extends Phaser.Scene{
     }
 
     preload(){
-      document.getElementById('game-over').style.display = 'none';
-    document.getElementById('pause').style.display = 'none';
+      
+   
       this.load.plugin('DialogModalPlugin', '../js/dialog_plugin.js');
       this.load.image("tiles", "../resources/1234.png");
       this.load.tilemapTiledJSON("mapfin", "../resources/mapafinal.json");
@@ -1180,6 +1458,8 @@ class levelfinal extends Phaser.Scene{
       this.load.audio('music', '../resources/background_music.mp3');
       this.load.image('next', '../resources/button.png');
       this.load.spritesheet('fox', '../resources/fox_walk.png', {frameWidth: 121, frameHeight: 45});
+      this.load.image('pause', '../resources/pause.png');
+      this.load.spritesheet('santa', "../resources/normal_walk_3.png",{frameWidth: 60, frameHeight: 58});
     
 
     }
@@ -1216,9 +1496,29 @@ class levelfinal extends Phaser.Scene{
         frames: [{key: 'player', frame: 5}],
         frameRate: 20,
          });
+          this.anims.create({
+        key: "walkjimmy",
+        frames: this.anims.generateFrameNames('santa', {start: 0, end: 10}),
+        frameRate: 10,
+        repeat: -1
+         });
+       this.anims.create({
+        key: "idlejimmy",
+        frames: [{key: 'santa', frame: 5}],
+        frameRate: 20,
+         });
 
 
+       var pausa = this.add.tileSprite(50, 50,64,64, 'pause').setInteractive().on('pointerdown', () => {
+    
+      this.scene.pause('levelfinal');
+      this.scene.launch('pauseFin');
 
+     
+      
+
+     });
+      
       
         
       gLayer = mapfin.createStaticLayer("GroundLayer", tileset, 0,0);
@@ -1241,7 +1541,7 @@ class levelfinal extends Phaser.Scene{
         player = this.physics.add.sprite(300, 100,'player');
          player.setBounce(0.2);
       player.setCollideWorldBounds(true);
-       jimmy = this.physics.add.sprite(200, 100,'player');
+       jimmy = this.physics.add.sprite(200, 100,'santa');
          jimmy.setBounce(0.2);
       jimmy.setCollideWorldBounds(true);
        enemy = this.physics.add.sprite(1000, 100,'fox');
@@ -1292,7 +1592,7 @@ class levelfinal extends Phaser.Scene{
         player.anims.play('walk', true);
         player.setVelocityX(-35);
          jimmy.flipX = true;
-        jimmy.anims.play('walk', true);
+        jimmy.anims.play('walkjimmy', true);
         jimmy.setVelocityX(-20);
       }, [], this);
 
@@ -1303,8 +1603,10 @@ class levelfinal extends Phaser.Scene{
       }, [], this);
 
        timedEvent = this.time.delayedCall(56000, function(){
+        
+
         this.scene.start('creditos');
-      }, [], this);
+              }, [], this);
 
 
 
@@ -1318,30 +1620,87 @@ class levelfinal extends Phaser.Scene{
 
     }
 
-
 }
+
+class PauseFin extends Phaser.Scene{
+  constructor(){
+    super('pauseFin');
+  }
+  preload(){
+    this.load.image("rect", "../resources/retangulo.png");
+      this.load.image("play", "../resources/play.png");
+      this.load.image("menu2", "../resources/main_menu2.png");
+       this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+        this.load.image("mute", "../resources/mute2.png");
+        this.load.image("soundon", "../resources/sound.png");
+  }
+  create(){
+       var add = this.add;
+    var input = this.input;
+    rectFin = this.add.tileSprite(700, 250, 400, 206, "rect");
+    playFin = this.add.tileSprite(800, 300, 64,64, 'play').setInteractive().on('pointerdown', () => {
+      this.scene.stop('pauseFin');
+      this.scene.resume('levelfinal');});
+    homeFin = this.add.tileSprite(600, 300, 64, 64, "menu2").setInteractive().on('pointerdown', () =>{
+      window.location.href = "menu.html";
+
+    });
+    muteFin = this.add.tileSprite(700, 250, 32,32, 'mute').setInteractive().on('pointerdown', () =>{
+      music.stop();
+    });
+
+    soundOnFin = this.add.tileSprite(700, 300, 32,32, 'soundon').setInteractive().on('pointerdown', () =>{
+      music.play();
+    });
+
+
+    WebFont.load({
+        google: {
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
+        },
+        active: function ()
+        {
+            add.text(613, 160, 'PAUSA', { fontFamily: 'Splatch', fontSize: 40, color: '#000000' });
+            add.text(768, 240, 'PLAY', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+
+             add.text(560, 240, 'MENU', { fontFamily: 'Splatch', fontSize: 20, color: '#000000' });
+        }
+    });
+  }
+}
+
 
 class creditos extends Phaser.Scene{
    constructor(){
         super("creditos");
     }
+   
+     
 
     preload(){
-       
+         
+    
       this.load.image("background", "../resources/bg.png");
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
+    this.load.image("menu", "../resources/main_menu.png");
+
     
+    }
     
 
-    }
+    
     create(){
       var background = this.add.tileSprite(460, 160, 4000, 1080, "background");
+      var background = this.add.tileSprite(700, 350, 128, 128, "menu").setInteractive().on('pointerdown', () =>{
+        window.location.href = "menu.html";
+      });
       var add = this.add;
     var input = this.input;
 
+
     WebFont.load({
         google: {
-            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer' ]
+            families: [ 'Freckle Face', 'Finger Paint', 'Nosifer']
         },
         active: function ()
         {
@@ -1351,16 +1710,21 @@ class creditos extends Phaser.Scene{
     });
 
 
-  document.getElementById('restart').style.display = 'none';
-    document.getElementById('pause').style.display = 'none';
-    document.getElementById('endless').style.display = 'block';
+     
+
+
   
     
    
 
  
+      }
+          update(){
+
+              }
 }
-}
+
+
 var config = {
     type: Phaser.AUTO,
     width: 1440,
@@ -1373,12 +1737,12 @@ var config = {
             debug: false
         }
     },
-    scene: [prelevel, level0, level1, level2, level3, levelfinal, creditos]
+    scene: [prelevel,PausePre, level0,Pause0, level1,Pause1, level2, Pause2, level3,Pause3, levelfinal,PauseFin, creditos]
 };
 var game = new Phaser.Game(config);
 
-var timedEvent,button,jimmy, player,apple,apple1, apple2, apple3, apple4, cursors, jump_sound, death_sound, start, end, music, enemy, enemy2, boss;
-var map1,map2,map3,map0,mapfin, mappre, gLayer, bgLayer, deathLayer;
-var score = 0;
+var timedEvent,home, home0, home1,home2, home3, homeFin,  isPaused, play,rect,button,jimmy, player,apple,apple1, apple2, apple3, apple4, cursors, jump_sound, death_sound, start, end, music, enemy, enemy2, boss;
+var map1,map2,map3,map0,mapfin, mappre, gLayer, bgLayer, deathLayer, rect, rect0, rect1, rect2, rect3, rectFin, play, play0, play1, play2, play3, playFin, mute, mute0, mute1, mute2, mute3, muteFin, soundOn;
+var score = 0, soundOn0, soundOn1, soundOn2, soundOn3, soundOnFin;
 
 

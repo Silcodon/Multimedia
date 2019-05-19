@@ -49,7 +49,7 @@ function main() {
     for (let i = 1; i <= 10; i++) {
         var str2 = i;
         if (document.cookie.indexOf(str1.concat(str2)) == -1) {
-            document.getElementById(str1.concat(str2)).innerHTML = "Jogador " + i;
+            document.getElementById(str1.concat(str2)).innerHTML = "Nome" + i;
             document.getElementById(str1.concat(str2, str3)).innerHTML = 0;
         }
         else {

@@ -43,12 +43,15 @@ right: 0;
 }
 
 #skin2{
+	background-image: url(../resources/skin_2_parado.png);
 	left:27.5%;
 }
 #skin3{
+	background-image: url(../resources/skin_3_parado.png);
 	left:35%;
 }
 #skin4{
+	background-image: url(../resources/skin_4_parado.png);
 	left:42.5%;
 }
 #back{

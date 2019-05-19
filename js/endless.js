@@ -579,7 +579,7 @@
   }
 
 
-  function updatecookies(score1) {
+function updatecookies(score1) {
     var nome = getCookie("nome");
     var str1 = "ranking";
     var str3 = "a";

@@ -7,7 +7,10 @@ bottom: 0;
 left: 0;
 right: 0;
 }
-
+@font-face {
+  font-family: Splatch;
+  src: url(../resources/Splatch.ttf);
+}
 .back{
 	position: absolute;
 	height: 100%;
@@ -37,39 +40,39 @@ p{
 
 #endlesstexto{
 	font-size: 2.5vw;
-	top:20%;
-	left:70%;
+	top:35%;
+	left:60%;
 
 }
 
 #campanhatexto{
 	font-size: 2.5vw;
-	top:20%;
-	left: 40%;
+	top:35%;
+	left: 20%;
 
 }
 
 #controls{
 	font-size: 2.5vw;
-	top: 20%;
-	left: 20%;
+	top: 25%;
+	left: 40%;
 }
 
 #jumpendless{
 	font-size: 1.5vw;
-	top: 33%;
-	left: 65%;
+	top:50%;
+	left: 60%;
 }
 
 #jump{
 	font-size: 1.5vw;
-	top: 33%;
-	left: 35%;
+	top: 50%;
+	left: 20%;
 }
 #crouch{
 	font-size: 1.5vw;
-	top: 40%;
-	left: 35%;
+	top: 60%;
+	left: 20%;
 }
 
 #start{

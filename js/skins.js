@@ -33,13 +33,13 @@ function main() {
 		if (getCookie("skin")=="normal_walk"){
 			document.getElementById("skin1").style.border = "thick solid #0000FF";
 		}
-		if (getCookie("skin")=="normal_walk2"){
+		if (getCookie("skin")=="normal_walk_2"){
 			document.getElementById("skin2").style.border = "thick solid #0000FF";
 		}
-		if (getCookie("skin")=="normal_walk3"){
+		if (getCookie("skin")=="normal_walk_3"){
 			document.getElementById("skin3").style.border = "thick solid #0000FF";
 		}
-		if (getCookie("skin")=="normal_walk4"){
+		if (getCookie("skin")=="normal_walk_4"){
 			document.getElementById("skin4").style.border = "thick solid #0000FF";
 		}
 		
@@ -54,7 +54,7 @@ function main() {
 
 	});
 	document.getElementById('skin2').addEventListener('click',function(){
-		setCookie("skin","normal_walk2",1);
+		setCookie("skin","normal_walk_2",1);
 		click_skin.play();
 		document.getElementById("skin1").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin2").style.border = "thick solid #0000FF";
@@ -63,7 +63,7 @@ function main() {
 
 	});
 	document.getElementById('skin3').addEventListener('click',function(){
-		setCookie("skin","normal_walk3",1);
+		setCookie("skin","normal_walk_3",1);
 		click_skin.play();
 		document.getElementById("skin1").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin2").style.border = "medium solid #1B1F1C";
@@ -72,7 +72,7 @@ function main() {
 
 	});
 	document.getElementById('skin4').addEventListener('click',function(){
-		setCookie("skin","normal_walk4",1);
+		setCookie("skin","normal_walk_4",1);
 		click_skin.play();
 		document.getElementById("skin1").style.border = "medium solid #1B1F1C";
 		document.getElementById("skin2").style.border = "medium solid #1B1F1C";
